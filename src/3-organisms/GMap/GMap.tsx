@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { Props } from './types';
 import {GOOGLE_MAP_API_KEY} from "../../const";
 
-const Map = (props: Props) => {
+const GMap = (_: Props) => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: GOOGLE_MAP_API_KEY
@@ -30,7 +30,7 @@ const Map = (props: Props) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={10}
+          zoom={12}
           onLoad={onLoad}
           onUnmount={onUnmount}
         >
@@ -40,4 +40,4 @@ const Map = (props: Props) => {
     ) : <></>
 };
 
-export default Map;
+export default GMap;

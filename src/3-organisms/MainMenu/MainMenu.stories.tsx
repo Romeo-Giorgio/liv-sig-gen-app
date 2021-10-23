@@ -1,10 +1,10 @@
 import { useState } from "react";
-import GMap from "./GMap";
+import MainMenu from "./MainMenu";
 
 //********** Stories **********//
 export default {
-    component: GMap,
-    title: "3-organisms/GMap",
+    component: MainMenu,
+    title: "3-organisms/MainMenu",
     parameters: {
       docs: {
         description: {
@@ -17,7 +17,7 @@ export default {
   export const DefaultStory = () => {
   
     return (
-      <GMap/>
+      <MainMenu/>
     );
   };
   DefaultStory.storyName = "Default";
