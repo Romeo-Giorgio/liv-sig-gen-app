@@ -1,11 +1,11 @@
 //********** Import **********//
 import { action } from "@storybook/addon-actions";
-import MainMenu from "./MainMenu";
+import MainMenuPanel from "./MainMenuPanel";
 
 //********** Stories **********//
 export default {
-    component: MainMenu,
-    title: "3-organisms/MainMenu",
+    component: MainMenuPanel,
+    title: "5-panels/MainMenuPanel",
     parameters: {
       docs: {
         description: {
@@ -16,12 +16,11 @@ export default {
   };
   
   export const DefaultStory = () => {
-  
     return (
-      <MainMenu
-      onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
-      onSignalersButtonClick={action("onSignalersButtonClick")}
-      onTracksButtonClick={action("onTracksButtonClick")}
+      <MainMenuPanel 
+        onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
+        onSignalersButtonClick={action("onSignalersButtonClick")}
+        onTracksButtonClick={action("onTracksButtonClick")}
       />
     );
   };
