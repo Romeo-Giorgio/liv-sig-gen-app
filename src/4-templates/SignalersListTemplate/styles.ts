@@ -10,7 +10,7 @@ const styles = (theme: Theme) =>
   createStyles<StylesKey, Props>({
     // Theme overrides
     root: {
-       maxWidth: 200,
+       maxWidth: 280,
     },
     item:{
       marginTop: "5px",

@@ -13,6 +13,8 @@ export interface Props {
   signalersList?:Signaler[];
   /** Callback fired when selected signaler changes. */
   onSelectedSignalerChange: (value?: Signaler) => void;
+  /** Callback fired when signaler edit button is clicked. */
+  onSignalerEdit: (id:string) => void;
   /** Callback fired when signaler delete button is clicked. */
   onSignalerDelete: (id:string) => void;
   };
@@ -33,6 +35,8 @@ interface StylesClasses extends ThemeOverrides {
   box?: never;
   /** Styles applied to the item elements in the list. */
   item?: never;
+  /** Styles applied to the text elements. */
+  itemText?: never;
   /** Styles applied to the item's icon. */
   itemIcon?: never;
 }

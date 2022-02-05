@@ -7,17 +7,18 @@ import {
 } from "@material-ui/core";
 import styles, { itemClasses, rootClasses } from "./styles";
 import SignalersList from "../../3-organisms/SignalersList";
-import { Add } from "@material-ui/icons";
+import { Add, Close } from "@material-ui/icons";
 
 //********** Component **********//
 const SignalersListTemplate = (props: Props) => {
-  const {askToAddSignaler, onSelectedSignalerChange, onSignalerDelete, selectedSignaler, signalersList} = props;
+  const {askToAddSignaler, onSelectedSignalerChange, onSignalerEdit, onSignalerDelete, selectedSignaler, signalersList, inputOpen} = props;
 
   return (
     <Grid container direction="column" alignItems="flex-end" className={rootClasses(props)}>
       <Grid item xs>
         <SignalersList 
           onSelectedSignalerChange={onSelectedSignalerChange}
+          onSignalerEdit={onSignalerEdit}
           onSignalerDelete={onSignalerDelete}
           selectedSignaler={selectedSignaler}
           signalersList={signalersList}
@@ -27,7 +28,7 @@ const SignalersListTemplate = (props: Props) => {
         <IconButton
           onClick={askToAddSignaler}
         >
-          <Add/>
+          {inputOpen ? <Close/> : <Add/>}
         </IconButton>
       </Grid>
     </Grid>
