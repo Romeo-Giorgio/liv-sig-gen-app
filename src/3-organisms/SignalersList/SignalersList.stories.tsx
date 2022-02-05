@@ -40,6 +40,9 @@ export const DefaultStory = () => {
         setCurrentSignaler(v);
         action("onSelectedSignalerChange")(v);
       }}
+      onSignalerEdit={(signalerId:string)=>{
+        action("onSignalerEdit")(signalerId);
+      }}
       onSignalerDelete={(signalerId:string)=>{
         setSignalersList(signalersList.filter(s=>s.id !== signalerId));
         action("onSignalerDeleteCallback")(signalerId);

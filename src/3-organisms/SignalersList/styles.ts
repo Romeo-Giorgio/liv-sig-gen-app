@@ -12,16 +12,16 @@ const styles = (theme: Theme) =>
     root: {},
     box:{
       width: '100%', 
-      maxWidth: 360, 
-      backgroundColor: theme.palette.background.default,
-      borderRadius:theme.shape.borderRadius,
-      boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+      maxWidth: 350,
     },
     item:{
       borderRadius:theme.shape.borderRadius,
       "&:hover":{
         backgroundColor: theme.palette.info.light,
       },
+    },
+    itemText:{
+      marginRight:"10px",
     },
     itemIcon:{
       borderRadius:100,
@@ -57,4 +57,12 @@ export const itemIconClasses = (props: StylesProps) => {
 
   const { itemIcon, root } = classes;
   return clsx(itemIcon, root, className);
+};
+
+export const itemTextClasses = (props: StylesProps) => {
+  const { classes, className } = props;
+  if (classes == null) return className;
+
+  const { itemText, root } = classes;
+  return clsx(itemText, root, className);
 };
