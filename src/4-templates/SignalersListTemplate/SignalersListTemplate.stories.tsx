@@ -1,13 +1,13 @@
 //********** Import **********//
 import { action } from "@storybook/addon-actions";
-import SignalersList from "./SignalersList";
+import SignalersListTemplate from "./SignalersListTemplate";
 import { useState } from "react";
-import { Signaler } from "../SignalerInput/types";
+import { Signaler } from "../../3-organisms/SignalerInput/types";
 
 //********** Stories **********//
 export default {
-  component: SignalersList,
-  title: "3-organisms/SignalersList",
+  component: SignalersListTemplate,
+  title: "4-templates/SignalersListTemplate",
   parameters: {
     docs: {
       description: {
@@ -33,7 +33,7 @@ export const DefaultStory = () => {
   );
 
   return (
-    <SignalersList 
+    <SignalersListTemplate 
       selectedSignaler={currentSignaler}
       signalersList={signalersList}
       onSelectedSignalerChange={(v)=>{
@@ -43,6 +43,9 @@ export const DefaultStory = () => {
       onSignalerDelete={(signalerId:string)=>{
         setSignalersList(signalersList.filter(s=>s.id !== signalerId));
         action("onSignalerDeleteCallback")(signalerId);
+      }}
+      askToAddSignaler={()=>{
+        action("askToAddSignaler")();
       }}
     />
   );
