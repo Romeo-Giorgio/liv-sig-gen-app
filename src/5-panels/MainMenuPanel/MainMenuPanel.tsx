@@ -4,6 +4,7 @@ import MainMenu from "../../3-organisms/MainMenu/MainMenu";
 import { Props, StylesProps } from "./types";
 import styles, { panelClasses } from "./styles";
 import { withStyles } from "@material-ui/core";
+
 //********** Component **********//
 const MainBarPanel = (p: Props) => {
   const props = p as StylesProps;
