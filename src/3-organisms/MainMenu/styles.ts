@@ -1,6 +1,5 @@
 //********** Imports **********//
 import { Theme } from "@material-ui/core";
-import blueGrey from "@material-ui/core/colors/blueGrey";
 import { createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
@@ -11,11 +10,14 @@ const styles = (theme: Theme) =>
   createStyles<StylesKey, Props>({
     // Theme overrides
     root: {},
-    appBar:{
+    appBar: {
       borderRadius: "50px",
       width: "200px",
-      backgroundColor: blueGrey[100],
-  }
+      backgroundColor: theme.palette.background.paper,
+    },
+    iconSelected: {
+      color: theme.palette.primary.main,
+    }
   });
 
 export default styles;
@@ -27,4 +29,14 @@ export const menuClasses = (props: StylesProps) => {
 
   const { appBar, root } = classes;
   return clsx(appBar, root, className);
+};
+
+export const iconClasses = (props: StylesProps, selected:boolean) => {
+  const { classes, className } = props;
+  if (classes == null) return className;
+
+  const { iconSelected } = classes;
+  return clsx( className, {
+    [iconSelected]: selected,
+  });
 };

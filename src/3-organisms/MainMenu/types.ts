@@ -26,6 +26,8 @@ export interface ThemeProps {};
 interface StylesClasses extends ThemeOverrides {
   /** Styles applied to the appBar. */
   appBar?:never;
+  /** Styles applied to the icon that is selected. */
+  iconSelected?:never;
 }
 export type StylesKey = keyof StylesClasses;
 export type ClassesProp = StyledComponentProps<StylesKey>["classes"];
