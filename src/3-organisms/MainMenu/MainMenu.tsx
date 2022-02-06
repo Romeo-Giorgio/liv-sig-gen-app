@@ -4,34 +4,48 @@ import {
     AppBar , Toolbar,  Divider, IconButton, withStyles 
   } from "@material-ui/core";
 import { People, Timeline ,Room } from "@material-ui/icons";
-import styles, { menuClasses } from "./styles";
+import styles, { iconClasses, menuClasses } from "./styles";
+import { useState } from "react";
 
 //********** Component **********//
 const MainMenu = (props: Props) => {
-    const {onIntersectionsButtonClick, onSignalersButtonClick, onTracksButtonClick} = props;
+    const {onIntersectionsButtonClick, onSignalersButtonClick, onTracksButtonClick } = props;
+    const [mode, setMode] = useState<"track"|"intersection"|"signaler">("track");
     return (
         <AppBar position="static" className={menuClasses(props)}>
             <Toolbar>
-                <IconButton
-                onClick={onTracksButtonClick}>
-                    <Timeline />
+                <IconButton 
+                    className={iconClasses(props,  mode==="track")}
+                    onClick={()=>{
+                        setMode("track");
+                        if(onTracksButtonClick)onTracksButtonClick();
+                    }}>
+                    <Timeline  />
                 </IconButton>
                 <Divider
                     orientation="vertical"
                     variant="fullWidth"
                     flexItem
                 />
-                <IconButton
-                onClick={onIntersectionsButtonClick}>
-                    <Room />
+                <IconButton 
+                    className={iconClasses(props, mode==="intersection")}
+                    onClick={()=>{
+                        setMode("intersection");
+                       if(onIntersectionsButtonClick)onIntersectionsButtonClick();
+                    }}>
+                    <Room/>
                 </IconButton>
                 <Divider
                     orientation="vertical"
                     variant="fullWidth"
                     flexItem
                 />
-                <IconButton
-                onClick={onSignalersButtonClick}>
+                <IconButton 
+                    className={iconClasses(props, mode==="signaler")}
+                    onClick={()=>{
+                        setMode("signaler");
+                        if(onSignalersButtonClick)onSignalersButtonClick();
+                    }}>
                     <People />
                 </IconButton>
             </Toolbar>
