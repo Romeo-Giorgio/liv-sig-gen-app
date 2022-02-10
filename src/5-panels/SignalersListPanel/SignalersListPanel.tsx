@@ -1,16 +1,14 @@
 //********** Imports **********//
-import Panel from "../Panel";
-import { Props, StylesProps } from "./types";
-import styles, { panelClasses } from "./styles";
-import { Fade, withStyles } from "@material-ui/core";
+import { Props } from "./SignalersListPanel.types";
+import { StyledListCard, StyledInputCard, StyledCardContent } from "./SignalersListPanel.slots";
+import { Fade } from "@mui/material";
 import SignalersListTemplate from "../../4-templates/SignalersListTemplate";
-import { Signaler } from "../../3-organisms/SignalerInput/types";
+import { Signaler } from "../../3-organisms/SignalerInput/SignalerInput.types";
 import SignalerInput from "../../3-organisms/SignalerInput";
 import { useState } from "react";
 
 //********** Component **********//
-const MainBarPanel = (p: Props) => {
-  const props = p as StylesProps;
+const MainBarPanel = (props: Props) => {
 
   const [openSignalerInputPanel, setOpenSignalerInputPanel] = useState<boolean>(false);
   // Using the storybook, the component need data to display coherent HMI. 
@@ -24,35 +22,36 @@ const MainBarPanel = (p: Props) => {
 
   return (
     <>
-      <Panel hasHeader={false} className={panelClasses(props, "list")}>
-        <SignalersListTemplate 
-        askToAddSignaler={()=>{
-          setOpenSignalerInputPanel(!openSignalerInputPanel);
-        }}
-        onSelectedSignalerChange={()=>{}}
-        onSignalerDelete={()=>{}}
-        onSignalerEdit={()=>{}}
-        selectedSignaler={temporaryList[1]}
-        signalersList={temporaryList}
-        inputOpen={openSignalerInputPanel}
-        />
-      </Panel>
+      <StyledListCard>
+        <StyledCardContent>
+          <SignalersListTemplate 
+            askToAddSignaler={()=>{
+              setOpenSignalerInputPanel(!openSignalerInputPanel);
+            }}
+            onSelectedSignalerChange={()=>{}}
+            onSignalerDelete={()=>{}}
+            onSignalerEdit={()=>{}}
+            selectedSignaler={temporaryList[1]}
+            signalersList={temporaryList}
+            inputOpen={openSignalerInputPanel}
+          />
+       </StyledCardContent>
+      </StyledListCard>
       <Fade in={openSignalerInputPanel}>
-        <Panel hasHeader={false} className={panelClasses(props, "input")}>
+        <StyledInputCard>
+          <StyledCardContent>
           <SignalerInput 
             onSignalerBlur={()=>{}}
             onSignalerChange={()=>{}}
             signaler={{}as Signaler}
             signalersList={temporaryList}
           />
-        </Panel>
+          </StyledCardContent>
+        </StyledInputCard>
       </Fade>
     </>
-    
   );
 };
 MainBarPanel.displayName = "MainBarPanel";
 
-export default withStyles<"root", { name: string }, Props>(styles, {
-  name: "MainBarPanel",
-})(MainBarPanel);
+export default MainBarPanel;

@@ -2,7 +2,7 @@
 import { action } from "@storybook/addon-actions";
 import SignalersListTemplate from "./SignalersListTemplate";
 import { useState } from "react";
-import { Signaler } from "../../3-organisms/SignalerInput/types";
+import { Signaler } from "../../3-organisms/SignalerInput/SignalerInput.types";
 
 //********** Stories **********//
 export default {

@@ -1,6 +1,4 @@
-//********** Imports **********//
-import { StyledComponentProps, WithStyles } from "@material-ui/core";
-
+//********** Types **********//
 export interface Signaler  {
   /** ID of the signaler. */
   id:string;
@@ -29,23 +27,3 @@ export interface Props {
   onSignalerBlur: (value?: Signaler) => void;
   };
   
-
-  //********** Theme **********//
-export interface ThemeOverrides {
-  /** Styles applied to the root element. */
-  root?: never;
-}
-export type ClassKey = keyof ThemeOverrides;
-
-export interface ThemeProps {};
-
-//********** Styles **********//
-interface StylesClasses extends ThemeOverrides {
-  /** Styles applied to the row elements that need a space. */
-  spacedRow?: never;
-  /** Styles applied to the select element. */
-  select?: never;
-}
-export type StylesKey = keyof StylesClasses;
-export type ClassesProp = StyledComponentProps<StylesKey>["classes"];
-export type StylesProps = Props & ThemeProps & Partial<WithStyles<StylesKey>>;

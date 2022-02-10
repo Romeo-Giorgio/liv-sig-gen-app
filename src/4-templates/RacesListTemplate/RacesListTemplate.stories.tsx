@@ -2,7 +2,7 @@
 import { action } from "@storybook/addon-actions";
 import RacesListTemplate from "./RacesListTemplate";
 import { useState } from "react";
-import { Race } from "../../3-organisms/RaceInput/types";
+import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
 
 //********** Stories **********//
 export default {

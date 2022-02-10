@@ -1,1 +1,1 @@
-export { default } from "./SignalersListPanel";
+export { default } from "./RacesListPanel";

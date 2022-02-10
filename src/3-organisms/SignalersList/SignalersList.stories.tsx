@@ -2,7 +2,7 @@
 import { action } from "@storybook/addon-actions";
 import SignalersList from "./SignalersList";
 import { useState } from "react";
-import { Signaler } from "../SignalerInput/types";
+import { Signaler } from "../SignalerInput/SignalerInput.types";
 
 //********** Stories **********//
 export default {

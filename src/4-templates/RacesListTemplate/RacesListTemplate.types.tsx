@@ -1,7 +1,5 @@
 //********** Imports **********//
-import { StyledComponentProps, WithStyles } from "@material-ui/core";
-import { Race } from "../../3-organisms/RaceInput/types";
-
+import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
 
 //********** Props **********//
 export interface Props {
@@ -22,21 +20,3 @@ export interface Props {
   /** Callback fired when + button is clicked under the list. */
   askToAddRace: () => void;
   };
-  
-
-  //********** Theme **********//
-export interface ThemeOverrides {
-  /** Styles applied to the root element. */
-  root?: never;
-  /** Styles applied to the items element. */
-  item?: never;
-}
-export type ClassKey = keyof ThemeOverrides;
-
-export interface ThemeProps {};
-
-//********** Styles **********//
-interface StylesClasses extends ThemeOverrides {}
-export type StylesKey = keyof StylesClasses;
-export type ClassesProp = StyledComponentProps<StylesKey>["classes"];
-export type StylesProps = Props & ThemeProps & Partial<WithStyles<StylesKey>>;

@@ -1,13 +1,11 @@
 //********** Imports **********//
-import Panel from "../Panel";
 import MainMenu from "../../3-organisms/MainMenu/MainMenu";
-import { Props, StylesProps } from "./types";
-import styles, { panelClasses } from "./styles";
-import { withStyles } from "@material-ui/core";
+import { Props} from "./MainMenuPanel.types";
+import { StyledCard, StyledCardContent } from "./MainMenuPanel.slots";
+import { Card, CardContent } from "@mui/material";
 
 //********** Component **********//
-const MainBarPanel = (p: Props) => {
-  const props = p as StylesProps;
+const MainBarPanel = (props: Props) => {
   const { 
     onIntersectionsButtonClick, 
     onSignalersButtonClick, 
@@ -15,17 +13,17 @@ const MainBarPanel = (p: Props) => {
   } = props;
 
   return (
-    <Panel hasHeader={false} className={panelClasses(props)}>
-      <MainMenu 
-      onIntersectionsButtonClick={onIntersectionsButtonClick}
-      onSignalersButtonClick={onSignalersButtonClick}  
-      onTracksButtonClick={onTracksButtonClick}
-      />
-    </Panel>
+    <StyledCard>
+      <StyledCardContent>
+          <MainMenu 
+            onIntersectionsButtonClick={onIntersectionsButtonClick}
+            onSignalersButtonClick={onSignalersButtonClick}  
+            onTracksButtonClick={onTracksButtonClick}
+            />
+        </StyledCardContent>
+    </StyledCard>
   );
 };
 MainBarPanel.displayName = "MainBarPanel";
 
-export default withStyles<"root", { name: string }, Props>(styles, {
-  name: "MainBarPanel",
-})(MainBarPanel);
+export default MainBarPanel;

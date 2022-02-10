@@ -1,7 +1,7 @@
 //********** Import **********//
 import { action } from "@storybook/addon-actions";
 import RaceInput from "./RaceInput";
-import { Race } from "./types";
+import { Race } from "./RaceInput.types";
 import { useState } from "react";
 
 //********** Stories **********//

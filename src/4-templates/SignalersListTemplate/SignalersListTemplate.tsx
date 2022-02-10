@@ -1,20 +1,19 @@
 //********** Imports **********//
-import { Props } from "./types";
+import { Props } from "./SignalersListTemplate.types";
 import {
   Grid,
   IconButton,
-  withStyles 
-} from "@material-ui/core";
-import styles, { itemClasses, rootClasses } from "./styles";
+} from "@mui/material";
+import { StyledGridItem, StyledGridRoot } from "./SignalersListTemplate.slots";
 import SignalersList from "../../3-organisms/SignalersList";
-import { Add, Close } from "@material-ui/icons";
+import { Add, Close } from "@mui/icons-material";
 
 //********** Component **********//
 const SignalersListTemplate = (props: Props) => {
   const {askToAddSignaler, onSelectedSignalerChange, onSignalerEdit, onSignalerDelete, selectedSignaler, signalersList, inputOpen} = props;
 
   return (
-    <Grid container direction="column" alignItems="flex-end" className={rootClasses(props)}>
+    <StyledGridRoot container direction="column" alignItems="flex-end">
       <Grid item xs>
         <SignalersList 
           onSelectedSignalerChange={onSelectedSignalerChange}
@@ -24,17 +23,15 @@ const SignalersListTemplate = (props: Props) => {
           signalersList={signalersList}
         />
       </Grid>
-      <Grid item xs className={itemClasses(props)}>
+      <StyledGridItem item xs>
         <IconButton
           onClick={askToAddSignaler}
         >
           {inputOpen ? <Close/> : <Add/>}
         </IconButton>
-      </Grid>
-    </Grid>
+      </StyledGridItem>
+    </StyledGridRoot>
   );
 };
 
-export default withStyles<"root", { name: string }, Props>(styles, {
-    name: "SignalersListTemplate",
-  })(SignalersListTemplate);
+export default SignalersListTemplate;

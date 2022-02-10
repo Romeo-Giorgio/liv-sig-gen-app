@@ -1,14 +1,12 @@
 //********** Imports **********//
-import { Props, Race } from "./types";
+import { Props, Race } from "./RaceInput.types";
 import {
   Button,
   Grid,
     Input,
     InputLabel,
-    TextareaAutosize,
-    withStyles 
-  } from "@material-ui/core";
-import styles, {  spacedItemClasses, textAreaClasses } from "./styles";
+  } from "@mui/material";
+import { SpacedGrid, StyledTextareaAutosize } from "./RaceInput.slots";
 
 //********** Component **********//
 const SignalerInput = (props: Props) => {
@@ -31,10 +29,9 @@ const SignalerInput = (props: Props) => {
               }}
             />
       </Grid>
-      <Grid item xs className={spacedItemClasses(props)}>
+      <SpacedGrid item xs >
         <InputLabel >Description</InputLabel>
-            <TextareaAutosize
-              className={textAreaClasses(props)} 
+            <StyledTextareaAutosize
               minRows={5}
               maxRows={6}
               value={race?.description}
@@ -48,14 +45,12 @@ const SignalerInput = (props: Props) => {
                 if(onRaceBlur) onRaceBlur(race);
               }}
             />
-      </Grid>
-      <Grid item xs className={spacedItemClasses(props)}>
+      </SpacedGrid>
+      <SpacedGrid item xs >
         <Button variant="outlined" onClick={onAddPoint}>Ajouter un point</Button>
-      </Grid>
+      </SpacedGrid>
     </Grid>
   );
 };
 
-export default withStyles<"root", { name: string }, Props>(styles, {
-    name: "SignalerInput",
-  })(SignalerInput);
+export default SignalerInput;
