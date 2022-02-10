@@ -19,9 +19,9 @@ export default {
   
     return (
       <MainMenu
-      onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
-      onSignalersButtonClick={action("onSignalersButtonClick")}
-      onTracksButtonClick={action("onTracksButtonClick")}
+        onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
+        onSignalersButtonClick={action("onSignalersButtonClick")}
+        onTracksButtonClick={action("onTracksButtonClick")}
       />
     );
   };

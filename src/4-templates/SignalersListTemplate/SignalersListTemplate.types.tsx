@@ -1,7 +1,5 @@
 //********** Imports **********//
-import { StyledComponentProps, WithStyles } from "@material-ui/core";
-import { Signaler } from "../../3-organisms/SignalerInput/types";
-
+import { Signaler } from "../../3-organisms/SignalerInput/SignalerInput.types";
 
 //********** Props **********//
 export interface Props {
@@ -23,20 +21,3 @@ export interface Props {
   askToAddSignaler: () => void;
   };
   
-
-  //********** Theme **********//
-export interface ThemeOverrides {
-  /** Styles applied to the root element. */
-  root?: never;
-  /** Styles applied to the items element. */
-  item?: never;
-}
-export type ClassKey = keyof ThemeOverrides;
-
-export interface ThemeProps {};
-
-//********** Styles **********//
-interface StylesClasses extends ThemeOverrides {}
-export type StylesKey = keyof StylesClasses;
-export type ClassesProp = StyledComponentProps<StylesKey>["classes"];
-export type StylesProps = Props & ThemeProps & Partial<WithStyles<StylesKey>>;

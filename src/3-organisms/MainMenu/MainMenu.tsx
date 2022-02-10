@@ -1,58 +1,54 @@
 //********** Imports **********//
-import { Props } from "./types";
-import {
-    AppBar , Toolbar,  Divider, IconButton, withStyles 
-  } from "@material-ui/core";
-import { People, Timeline ,Room } from "@material-ui/icons";
-import styles, { iconClasses, menuClasses } from "./styles";
+import { Props } from "./MainMenu.types";
+import { Divider} from "@mui/material";
+import { People, Timeline ,Room } from "@mui/icons-material";
 import { useState } from "react";
+import { StyledAppBar, StyledToolbar, StyledIconButton } from "./MainMenu.slots";
 
 //********** Component **********//
 const MainMenu = (props: Props) => {
     const {onIntersectionsButtonClick, onSignalersButtonClick, onTracksButtonClick } = props;
-    const [mode, setMode] = useState<"track"|"intersection"|"signaler">("track");
+    const [mode, setMode] = useState<"race"|"intersection"|"signaler">("race");
     return (
-        <AppBar position="static" className={menuClasses(props)}>
-            <Toolbar>
-                <IconButton 
-                    className={iconClasses(props,  mode==="track")}
+        <StyledAppBar>
+            <StyledToolbar>
+                <StyledIconButton 
+                    selected={mode==="race"}
                     onClick={()=>{
-                        setMode("track");
+                        setMode("race");
                         if(onTracksButtonClick)onTracksButtonClick();
                     }}>
                     <Timeline  />
-                </IconButton>
+                </StyledIconButton>
                 <Divider
                     orientation="vertical"
-                    variant="fullWidth"
+                    variant="middle"
                     flexItem
                 />
-                <IconButton 
-                    className={iconClasses(props, mode==="intersection")}
+                <StyledIconButton
+                    selected={mode==="intersection"}
                     onClick={()=>{
                         setMode("intersection");
                        if(onIntersectionsButtonClick)onIntersectionsButtonClick();
                     }}>
                     <Room/>
-                </IconButton>
+                </StyledIconButton>
                 <Divider
                     orientation="vertical"
-                    variant="fullWidth"
+                    variant="middle"
                     flexItem
                 />
-                <IconButton 
-                    className={iconClasses(props, mode==="signaler")}
+                <StyledIconButton 
+                    selected={mode==="signaler"}
                     onClick={()=>{
                         setMode("signaler");
                         if(onSignalersButtonClick)onSignalersButtonClick();
                     }}>
                     <People />
-                </IconButton>
-            </Toolbar>
-        </AppBar>
+                </StyledIconButton>
+            </StyledToolbar>
+        </StyledAppBar>
       );
 };
 
-export default withStyles<"root", { name: string }, Props>(styles, {
-    name: "MainMenu",
-  })(MainMenu);
+export default MainMenu;

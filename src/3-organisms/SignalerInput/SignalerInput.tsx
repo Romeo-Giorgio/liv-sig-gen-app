@@ -1,14 +1,12 @@
 //********** Imports **********//
-import { Props, Signaler } from "./types";
+import { Props, Signaler } from "./SignalerInput.types";
 import {
   Grid,
-    Input,
-    InputLabel,
-    MenuItem,
-    Select,
-    withStyles 
-  } from "@material-ui/core";
-import styles, { selectClasses, spacedRowClasses } from "./styles";
+  Input,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
+import { StyledGrid, StyledSelect } from "./SignalerInput.slots";
 
 //********** Component **********//
 const SignalerInput = (props: Props) => {
@@ -51,8 +49,7 @@ const SignalerInput = (props: Props) => {
         </Grid>
         <Grid item>
           <InputLabel>Référent</InputLabel>
-          <Select 
-            className={selectClasses(props)} 
+          <StyledSelect 
             value={signaler?.referrer != null ?signaler?.referrer:""}
             onChange={(e,v)=>{
               onSignalerChange({
@@ -69,10 +66,10 @@ const SignalerInput = (props: Props) => {
               <em>{`${k.firstName} ${k.lastName}`}</em>
             </MenuItem>
           ))}
-          </Select>
+          </StyledSelect>
         </Grid>
       </Grid>
-      <Grid container spacing={2} direction="row" className={spacedRowClasses(props)}>
+      <StyledGrid container spacing={2} direction="row" >
         <Grid item>
           <InputLabel>Prénom</InputLabel>
           <Input 
@@ -105,11 +102,9 @@ const SignalerInput = (props: Props) => {
             }}        
           />
         </Grid>
-      </Grid>
+      </StyledGrid>
     </Grid>
   );
 };
 
-export default withStyles<"root", { name: string }, Props>(styles, {
-    name: "SignalerInput",
-  })(SignalerInput);
+export default SignalerInput;
