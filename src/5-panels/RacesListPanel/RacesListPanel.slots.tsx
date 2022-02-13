@@ -20,7 +20,7 @@ export const StyledInputCard = styled(Card)<CardProps>(({theme})=>({
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
   bottom: 10,
-  left: 316,
+  left: "calc(50% - 99px)",
   boxShadow:"none",
 }));
 
