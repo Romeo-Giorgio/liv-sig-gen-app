@@ -9,11 +9,20 @@ import { styled } from "@mui/material/styles";
 //********** Styles **********//
 export const StyledBox = styled(Box)<BoxProps>(({})=>({
   width: '100%', 
-  maxWidth: 350,
+  maxWidth: "280px",
+  maxHeight: "200px",
+  flexGrow: 1,
+  display: "flex",
+  flexDirection: "column",
+  minHeight: 0,
 }));
 
 export const StyledList = styled(List)<ListProps>(({theme})=>({
   width: "280px",
+  maxHeight: "200px",
+  flexGrow: 1,
+  overflow: "auto",
+  minHeight:" 100%",
 }));
 
 export const StyledListItem = styled(ListItem)<ListItemProps>(({theme})=>({
