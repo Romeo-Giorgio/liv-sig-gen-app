@@ -1,6 +1,5 @@
 //********** Imports **********//
 import { Props } from "./RacesList.types";
-import { List } from "@mui/material";
 import { StyledBox, StyledList, StyledListItem, StyledListItemIcon, StyledListItemText } from "./RacesList.slots";
 import { Delete, Edit } from "@mui/icons-material";
 
@@ -13,6 +12,7 @@ const RacesList = (props: Props) => {
       <StyledList>
         {racesList?.map((race)=>
           <StyledListItem 
+            key={race.id}
             selected={race.id===selectedRace?.id ?? false}
             onClick={(e)=>{
               onSelectedRaceChange(race);

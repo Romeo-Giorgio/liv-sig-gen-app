@@ -1,6 +1,5 @@
 //********** Imports **********//
 import { Props } from "./SignalersList.types";
-import { List } from "@mui/material";
 import { StyledBox, StyledList, StyledListItem, StyledListItemIcon, StyledListItemText } from "./SignalersList.slots";
 import { Delete, Edit } from "@mui/icons-material";
 
@@ -13,6 +12,7 @@ const SignalersList = (props: Props) => {
       <StyledList>
         {signalersList?.map((signaler)=>
           <StyledListItem 
+            key={signaler.id}
             selected={signaler.id===selectedSignaler?.id ?? false}
             onClick={(e)=>{
               onSelectedSignalerChange(signaler);
