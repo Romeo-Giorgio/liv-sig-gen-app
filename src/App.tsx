@@ -1,25 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import { Fade } from '@mui/material';
+import { useState } from 'react';
+import GMap from './3-organisms/GMap/GMap';
+import MainMenuPanel from './5-panels/MainMenuPanel';
+import RacesListPanel from './5-panels/RacesListPanel';
+import SignalersListPanel from './5-panels/SignalersListPanel';
 import './App.css';
 
+
+//********** App **********//
 function App() {
+  const [showSignalersListPanel, setShowSignalersListPanel] = useState<boolean>(false);
+
+  const onRacesButtonClick = ()=>{
+    setShowSignalersListPanel(false);
+  };
+  const onIntersectionsButtonClick = ()=>{
+    setShowSignalersListPanel(false);
+  };
+  const onSignalersButtonClick = ()=>{
+    setShowSignalersListPanel(true);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GMap/>
+      <MainMenuPanel
+        onRacesButtonClick={onRacesButtonClick}
+        onIntersectionsButtonClick={onIntersectionsButtonClick}
+        onSignalersButtonClick={onSignalersButtonClick}
+      />
+      <RacesListPanel/>
+      <Fade in={showSignalersListPanel} unmountOnExit>
+        <div>
+          <SignalersListPanel/>
+        </div>
+      </Fade>
+    </>
   );
 }
 

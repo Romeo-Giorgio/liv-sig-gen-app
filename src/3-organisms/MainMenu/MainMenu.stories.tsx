@@ -21,7 +21,7 @@ export default {
       <MainMenu
         onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
         onSignalersButtonClick={action("onSignalersButtonClick")}
-        onTracksButtonClick={action("onTracksButtonClick")}
+        onRacesButtonClick={action("onRacesButtonClick")}
       />
     );
   };

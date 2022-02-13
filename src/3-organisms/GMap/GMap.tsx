@@ -9,8 +9,9 @@ const GMap = (_: Props) => {
         googleMapsApiKey: GOOGLE_MAP_API_KEY
       })
       const containerStyle = {
-        width: '900px',
-        height: '500px'
+        width: 10000,
+        minHeight: "100vh",
+        maxWidth: "100vw",
       };
       const center = {
         lat: 49,
