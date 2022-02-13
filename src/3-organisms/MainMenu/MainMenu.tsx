@@ -7,7 +7,7 @@ import { StyledAppBar, StyledToolbar, StyledIconButton } from "./MainMenu.slots"
 
 //********** Component **********//
 const MainMenu = (props: Props) => {
-    const {onIntersectionsButtonClick, onSignalersButtonClick, onTracksButtonClick } = props;
+    const {onIntersectionsButtonClick, onSignalersButtonClick, onRacesButtonClick } = props;
     const [mode, setMode] = useState<"race"|"intersection"|"signaler">("race");
     return (
         <StyledAppBar>
@@ -16,7 +16,7 @@ const MainMenu = (props: Props) => {
                     selected={mode==="race"}
                     onClick={()=>{
                         setMode("race");
-                        if(onTracksButtonClick)onTracksButtonClick();
+                        if(onRacesButtonClick)onRacesButtonClick();
                     }}>
                     <Timeline  />
                 </StyledIconButton>

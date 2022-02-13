@@ -5,8 +5,7 @@ import { alpha, styled } from "@mui/material/styles";
 
 //********** Styles **********//
 export const StyledCard = styled(Card)<CardProps>(({theme})=>({
-  background: `${alpha(theme.palette.background.default, 0.95)}`,
-  backdropFilter: "blur(30px)",
+  background: "none",
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
   top: 0,

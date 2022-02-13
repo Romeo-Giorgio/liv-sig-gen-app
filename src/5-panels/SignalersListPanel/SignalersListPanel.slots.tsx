@@ -9,7 +9,7 @@ export const StyledListCard = styled(Card)<CardProps>(({theme})=>({
   backdropFilter: "blur(30px)",
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
-  top: 0,
+  bottom: 8,
   left: 8,
   boxShadow:"none",
 }));
@@ -20,7 +20,7 @@ export const StyledInputCard = styled(Card)<CardProps>(({theme})=>({
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
   bottom: 10,
-  left: 300,
+  left: 316,
   boxShadow:"none",
 }));
 

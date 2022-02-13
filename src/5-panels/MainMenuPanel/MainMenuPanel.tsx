@@ -9,7 +9,7 @@ const MainBarPanel = (props: Props) => {
   const { 
     onIntersectionsButtonClick, 
     onSignalersButtonClick, 
-    onTracksButtonClick, 
+    onRacesButtonClick, 
   } = props;
 
   return (
@@ -18,7 +18,7 @@ const MainBarPanel = (props: Props) => {
           <MainMenu 
             onIntersectionsButtonClick={onIntersectionsButtonClick}
             onSignalersButtonClick={onSignalersButtonClick}  
-            onTracksButtonClick={onTracksButtonClick}
+            onRacesButtonClick={onRacesButtonClick}
             />
         </StyledCardContent>
     </StyledCard>
