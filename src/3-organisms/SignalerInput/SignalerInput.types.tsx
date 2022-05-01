@@ -1,29 +1,28 @@
 //********** Types **********//
-export interface Signaler  {
+export interface Signaler {
   /** ID of the signaler. */
-  id:string;
+  id: string;
   /** LastName of the signaler. */
-  lastName:string;
+  lastName: string;
   /** FirstName of the signaler. */
-  firstName:string;
+  firstName: string;
   /** Phone of the signaler.*/
-  phone:string;
+  phone: string;
   /** Mail of the signaler. */
-  mail:string;
+  mail: string;
   /** Referrer of the signaler. */
-  referrer?:string;
+  referrer?: string;
 }
 //********** Props **********//
 export interface Props {
   /** CSS class applied to the root element. */
   className?: string;
   /** Current signaler. */
-  signaler?:Signaler;
+  signaler?: Signaler;
   /** Signalers list */
-  signalersList?:Signaler[];
+  signalersList?: Signaler[];
   /** Callback fired when one of the current signaler properties is changed. */
   onSignalerChange: (value?: Signaler) => void;
   /** Callback fired when one of the current signaler properties is fully changed and the user leave one of the fields. */
   onSignalerBlur: (value?: Signaler) => void;
-  };
-  
+}

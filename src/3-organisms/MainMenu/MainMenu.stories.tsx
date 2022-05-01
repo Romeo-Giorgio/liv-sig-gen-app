@@ -4,25 +4,24 @@ import MainMenu from "./MainMenu";
 
 //********** Stories **********//
 export default {
-    component: MainMenu,
-    title: "3-organisms/MainMenu",
-    parameters: {
-      docs: {
-        description: {
-          component: ``,
-        },
+  component: MainMenu,
+  title: "3-organisms/MainMenu",
+  parameters: {
+    docs: {
+      description: {
+        component: ``,
       },
     },
-  };
-  
-  export const DefaultStory = () => {
-  
-    return (
-      <MainMenu
-        onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
-        onSignalersButtonClick={action("onSignalersButtonClick")}
-        onRacesButtonClick={action("onRacesButtonClick")}
-      />
-    );
-  };
-  DefaultStory.storyName = "Default";
+  },
+};
+
+export const DefaultStory = () => {
+  return (
+    <MainMenu
+      onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
+      onSignalersButtonClick={action("onSignalersButtonClick")}
+      onRacesButtonClick={action("onRacesButtonClick")}
+    />
+  );
+};
+DefaultStory.storyName = "Default";

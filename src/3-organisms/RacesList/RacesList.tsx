@@ -1,46 +1,59 @@
 //********** Imports **********//
 import { Props } from "./RacesList.types";
-import { StyledBox, StyledList, StyledListItem, StyledListItemIcon, StyledListItemText } from "./RacesList.slots";
+import {
+  StyledBox,
+  StyledList,
+  StyledListItem,
+  StyledListItemIcon,
+  StyledListItemText,
+} from "./RacesList.slots";
 import { Delete, Edit } from "@mui/icons-material";
+import ObjectId from "bson-objectid";
 
 //********** Component **********//
 const RacesList = (props: Props) => {
-  const {selectedRace, racesList, onSelectedRaceChange, onRaceEdit, onRaceDelete} = props;
+  const {
+    selectedRace,
+    racesList,
+    onSelectedRaceChange,
+    onRaceEdit,
+    onRaceDelete,
+  } = props;
 
   return (
-    <StyledBox> 
+    <StyledBox>
       <StyledList>
-        {racesList?.map((race)=>
-          <StyledListItem 
-            key={race.id}
-            selected={race.id===selectedRace?.id ?? false}
-            onClick={(e)=>{
+        {racesList?.map((race, index) => (
+          <StyledListItem
+            key={index}
+            selected={race._id === selectedRace?._id ?? false}
+            onClick={(e) => {
               onSelectedRaceChange(race);
             }}
           >
-            <StyledListItemText 
+            <StyledListItemText
               primary={race?.name}
               secondary={race?.description}
             />
-            <StyledListItemIcon 
-              onClick={(e)=>{
-                onRaceEdit(race.id);
+            <StyledListItemIcon
+              onClick={(e) => {
+                onRaceEdit(race._id);
                 e.stopPropagation();
               }}
             >
               <Edit />
             </StyledListItemIcon>
-            <StyledListItemIcon 
-              onClick={(e)=>{
-                onRaceDelete(race.id);
+            <StyledListItemIcon
+              onClick={(e) => {
+                onRaceDelete(race._id);
                 e.stopPropagation();
               }}
             >
               <Delete />
             </StyledListItemIcon>
           </StyledListItem>
-        )}
-      </StyledList>  
+        ))}
+      </StyledList>
     </StyledBox>
   );
 };
