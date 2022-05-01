@@ -1,105 +1,96 @@
 //********** Imports **********//
 import { Props, Signaler } from "./SignalerInput.types";
-import {
-  Grid,
-  Input,
-  InputLabel,
-  MenuItem,
-} from "@mui/material";
+import { Grid, Input, InputLabel, MenuItem } from "@mui/material";
 import { StyledGrid, StyledSelect } from "./SignalerInput.slots";
 
 //********** Component **********//
 const SignalerInput = (props: Props) => {
-  const {signaler, signalersList, onSignalerBlur, onSignalerChange} = props;
+  const { signaler, signalersList, onSignalerBlur, onSignalerChange } = props;
 
   return (
     <Grid container direction="column">
       <Grid container spacing={2} direction="row">
         <Grid item>
           <InputLabel>Nom</InputLabel>
-          <Input 
+          <Input
             value={signaler?.lastName}
-            onChange={(e)=>{
+            onChange={(e) => {
               onSignalerChange({
                 ...signaler,
-                lastName:e.target.value
+                lastName: e.target.value,
               } as Signaler);
-            }} 
-            onBlur={()=>{
-              if(onSignalerBlur)
-                onSignalerBlur(signaler);
+            }}
+            onBlur={() => {
+              if (onSignalerBlur) onSignalerBlur(signaler);
             }}
           />
         </Grid>
         <Grid item>
           <InputLabel>Téléphone</InputLabel>
-          <Input 
+          <Input
             value={signaler?.phone}
-            onChange={(e)=>{
+            onChange={(e) => {
               onSignalerChange({
                 ...signaler,
-                phone:e.target.value
+                phone: e.target.value,
               } as Signaler);
             }}
-            onBlur={()=>{
-              if(onSignalerBlur)
-                onSignalerBlur(signaler);
+            onBlur={() => {
+              if (onSignalerBlur) onSignalerBlur(signaler);
             }}
           />
         </Grid>
         <Grid item>
           <InputLabel>Référent</InputLabel>
-          <StyledSelect 
-            value={signaler?.referrer != null ?signaler?.referrer:""}
-            onChange={(e,v)=>{
+          <StyledSelect
+            value={signaler?.referrer != null ? signaler?.referrer : ""}
+            onChange={(e, v) => {
               onSignalerChange({
                 ...signaler,
-                referrer:e.target.value
+                referrer: e.target.value,
               } as Signaler);
             }}
           >
-          <MenuItem value="">
-            <em> </em>
-          </MenuItem>
-          {signalersList?.map((k, i)=>(
-            <MenuItem value={k.id}>
-              <em>{`${k.firstName} ${k.lastName}`}</em>
+            <MenuItem value="">
+              <em> </em>
             </MenuItem>
-          ))}
+            {signalersList?.map((k, i) => (
+              <MenuItem value={k.id}>
+                <em>{`${k.firstName} ${k.lastName}`}</em>
+              </MenuItem>
+            ))}
           </StyledSelect>
         </Grid>
       </Grid>
-      <StyledGrid container spacing={2} direction="row" >
+      <StyledGrid container spacing={2} direction="row">
         <Grid item>
           <InputLabel>Prénom</InputLabel>
-          <Input 
-          value={signaler?.firstName}
-          onChange={(e)=>{
-            onSignalerChange({
-              ...signaler,
-              firstName:e.target.value
-            } as Signaler);
-          }}
-          onBlur={()=>{
-            if(onSignalerBlur)
-              onSignalerBlur(signaler);
-          }}
+          <Input
+            value={signaler?.firstName}
+            onChange={(e) => {
+              onSignalerChange({
+                ...signaler,
+                firstName: e.target.value,
+              } as Signaler);
+            }}
+            onBlur={() => {
+              if (onSignalerBlur) onSignalerBlur(signaler);
+            }}
           />
         </Grid>
         <Grid item>
           <InputLabel>Mail</InputLabel>
-          <Input 
+          <Input
             value={signaler?.mail}
-            onChange={(e)=>{
+            onChange={(e) => {
               onSignalerChange({
                 ...signaler,
-                mail:e.target.value
+                mail: e.target.value,
               } as Signaler);
-            }}  
-            onBlur={()=>{
-              if(onSignalerBlur)
-                onSignalerBlur(signaler);
-            }}        
+            }}
+            onBlur={() => {
+              if (onSignalerBlur) onSignalerBlur(signaler);
+            }}
           />
         </Grid>
       </StyledGrid>

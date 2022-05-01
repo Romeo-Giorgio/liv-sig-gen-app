@@ -16,32 +16,53 @@ export default {
     },
   },
 };
-  
-const list:Signaler[]=[
-  {id: "0001", firstName:"John", lastName:"Doe", phone:"0678912345", mail:"joh.doe@gmail.com"},
-  {id: "0002", firstName:"Patricien", lastName:"Cromwell", phone:"0678912345", mail:"pat.cro@gmail.com"},
-  {id: "0003", firstName:"Catricien", lastName:"Promwell", phone:"0678912345", mail:"cat.pro@gmail.com"},
+
+const list: Signaler[] = [
+  {
+    id: "0001",
+    firstName: "John",
+    lastName: "Doe",
+    phone: "0678912345",
+    mail: "joh.doe@gmail.com",
+  },
+  {
+    id: "0002",
+    firstName: "Patricien",
+    lastName: "Cromwell",
+    phone: "0678912345",
+    mail: "pat.cro@gmail.com",
+  },
+  {
+    id: "0003",
+    firstName: "Catricien",
+    lastName: "Promwell",
+    phone: "0678912345",
+    mail: "cat.pro@gmail.com",
+  },
 ];
 
-
 export const DefaultStory = () => {
-  const [currentSignaler, setCurrentSignaler]=useState<Signaler>(
-    {id: "0000", firstName:"Tony", lastName:"Stark", phone:"0678912345", mail:"ton.sta@gmail.com"}
-  );
+  const [currentSignaler, setCurrentSignaler] = useState<Signaler>({
+    id: "0000",
+    firstName: "Tony",
+    lastName: "Stark",
+    phone: "0678912345",
+    mail: "ton.sta@gmail.com",
+  });
   return (
-    <SignalerInput 
-      signalersList={list} 
-      signaler={currentSignaler} 
-      onSignalerChange={(v:Signaler|undefined)=>{
-        if(v!=null){
+    <SignalerInput
+      signalersList={list}
+      signaler={currentSignaler}
+      onSignalerChange={(v: Signaler | undefined) => {
+        if (v != null) {
           setCurrentSignaler(v);
           action("onSignalerChange")(v);
         }
       }}
-      onSignalerBlur={(v:Signaler|undefined)=>{
+      onSignalerBlur={(v: Signaler | undefined) => {
         action("onSignalerBlur")(v);
       }}
-      />
+    />
   );
 };
 DefaultStory.storyName = "Default";

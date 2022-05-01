@@ -1,39 +1,44 @@
-import { Fade } from '@mui/material';
-import { useState } from 'react';
-import GMap from './3-organisms/GMap/GMap';
-import MainMenuPanel from './5-panels/MainMenuPanel';
-import RacesListPanel from './5-panels/RacesListPanel';
-import SignalersListPanel from './5-panels/SignalersListPanel';
-import './App.css';
-
+import { Fade } from "@mui/material";
+import { createStore } from "@reduxjs/toolkit";
+import { useState } from "react";
+import { Provider } from "react-redux";
+import GMap from "./3-organisms/GMap/GMap";
+import MainMenuPanel from "./5-panels/MainMenuPanel";
+import RacesListPanel from "./5-panels/RacesListPanel";
+import SignalersListPanel from "./5-panels/SignalersListPanel";
+import "./App.css";
+import store from "./store";
 
 //********** App **********//
 function App() {
-  const [showSignalersListPanel, setShowSignalersListPanel] = useState<boolean>(false);
+  const [showSignalersListPanel, setShowSignalersListPanel] =
+    useState<boolean>(false);
 
-  const onRacesButtonClick = ()=>{
+  const onRacesButtonClick = () => {
     setShowSignalersListPanel(false);
   };
-  const onIntersectionsButtonClick = ()=>{
+  const onIntersectionsButtonClick = () => {
     setShowSignalersListPanel(false);
   };
-  const onSignalersButtonClick = ()=>{
+  const onSignalersButtonClick = () => {
     setShowSignalersListPanel(true);
   };
   return (
     <>
-      <GMap/>
-      <MainMenuPanel
-        onRacesButtonClick={onRacesButtonClick}
-        onIntersectionsButtonClick={onIntersectionsButtonClick}
-        onSignalersButtonClick={onSignalersButtonClick}
-      />
-      <RacesListPanel/>
-      <Fade in={showSignalersListPanel} unmountOnExit>
-        <div>
-          <SignalersListPanel/>
-        </div>
-      </Fade>
+      <Provider store={store}>
+        <GMap />
+        <MainMenuPanel
+          onRacesButtonClick={onRacesButtonClick}
+          onIntersectionsButtonClick={onIntersectionsButtonClick}
+          onSignalersButtonClick={onSignalersButtonClick}
+        />
+        <RacesListPanel />
+        <Fade in={showSignalersListPanel} unmountOnExit>
+          <div>
+            <SignalersListPanel />
+          </div>
+        </Fade>
+      </Provider>
     </>
   );
 }

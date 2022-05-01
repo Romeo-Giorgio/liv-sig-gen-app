@@ -8,4 +8,4 @@ export interface Props {
   onIntersectionsButtonClick?: () => void;
   /** Callback fired when Signalers button is clicked. */
   onSignalersButtonClick?: () => void;
-  };
+}
