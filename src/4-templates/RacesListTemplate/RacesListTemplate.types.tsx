@@ -1,5 +1,4 @@
 //********** Imports **********//
-import ObjectID from "bson-objectid";
 import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
 
 //********** Props **********//
@@ -15,9 +14,9 @@ export interface Props {
   /** Callback fired when selected race changes. */
   onSelectedRaceChange: (value?: Race) => void;
   /** Callback fired when race edit button is clicked. */
-  onRaceEdit: (id: ObjectID) => void;
+  onRaceEdit: (id: string) => void;
   /** Callback fired when race delete button is clicked. */
-  onRaceDelete: (id: ObjectID) => void;
+  onRaceDelete: (id: string) => void;
   /** Callback fired when + button is clicked under the list. */
   askToAddRace: () => void;
 }

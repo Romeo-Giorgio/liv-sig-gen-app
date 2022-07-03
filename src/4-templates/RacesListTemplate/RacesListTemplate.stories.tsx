@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import RacesListTemplate from "./RacesListTemplate";
 import { useState } from "react";
 import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
-import ObjectID from "bson-objectid";
+import { randomId } from "../../const";
 
 //********** Stories **********//
 export default {
@@ -20,20 +20,20 @@ export default {
 
 const list: Race[] = [
   {
-    _id: ObjectID("0001"),
+    id: randomId(10),
     name: "Course 10km",
     description: "Course chronométrée de 10",
   },
-  { _id: ObjectID("0002"), name: "Course 6km", description: "Course libre" },
-  { _id: ObjectID("0003"), name: "Course 4km", description: "" },
-  { _id: ObjectID("0004"), name: "Randonnée 10km", description: "" },
-  { _id: ObjectID("0005"), name: "Randonnée 6km", description: "" },
+  { id: randomId(10), name: "Course 6km", description: "Course libre" },
+  { id: randomId(10), name: "Course 4km", description: "" },
+  { id: randomId(10), name: "Randonnée 10km", description: "" },
+  { id: randomId(10), name: "Randonnée 6km", description: "" },
 ];
 
 export const DefaultStory = () => {
   const [racesList, setRacesList] = useState<Race[]>(list);
   const [currentRace, setCurrentRace] = useState<Race | undefined>({
-    _id: ObjectID("0000"),
+    id: randomId(10),
     name: "Course 12km",
     description: "Course de 12km libre",
   });
@@ -46,11 +46,10 @@ export const DefaultStory = () => {
         setCurrentRace(v);
         action("onSelectedRaceChange")(v);
       }}
-      onRaceDelete={(raceId: ObjectID) => {
-        // setRacesList(racesList.filter((s) => s._id !== raceId));
+      onRaceDelete={(raceId: string) => {
         action("onRaceDeleteCallback")(raceId);
       }}
-      onRaceEdit={(raceId: ObjectID) => {
+      onRaceEdit={(raceId: string) => {
         action("onRaceEdit")(raceId);
       }}
       askToAddRace={() => {
