@@ -16,7 +16,7 @@ import {
   getRacesList,
   racesAdapter,
 } from "../../slices/racesSlices";
-import ObjectId from "bson-objectid";
+import { randomId } from "../../const";
 
 //********** Component **********//
 const MainBarPanel = (props: Props) => {
@@ -32,13 +32,11 @@ const MainBarPanel = (props: Props) => {
     racesAdapter.getSelectors().selectAll(state.races)
   );
 
-  console.log(racesList);
   const createNewRace = () => {
-    console.log(raceInput);
     if (raceInput != null) {
       dispatch(
         createRace({
-          _id: new ObjectId(),
+          id: randomId(10),
           name: raceInput.name,
           description: raceInput.description,
         } as Race)

@@ -1,6 +1,6 @@
 //********** Import **********//
-import ObjectID from "bson-objectid";
 import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
+import { randomId } from "../../const";
 import RacesListPanel from "./RacesListPanel";
 
 //********** Stories **********//
@@ -19,27 +19,27 @@ export default {
 // TODO: When the backend will be connected through API, this component will use the redux store to get its data.
 const temporaryList: Race[] = [
   {
-    _id: ObjectID("6261cb693a07cf594f3413d8"),
+    id: randomId(10),
     name: "Course 10km",
     description: "Course chronométrée de 10",
   },
   {
-    _id: ObjectID("6261cb933a07cf594f3413da"),
+    id: randomId(10),
     name: "Course 6km",
     description: "Course libre",
   },
   {
-    _id: ObjectID("6261cbad3a07cf594f3413dc"),
+    id: randomId(10),
     name: "Course 4km",
     description: "",
   },
   {
-    _id: ObjectID("6261cbe8396d9b5d23e9f7ac"),
+    id: randomId(10),
     name: "Randonnée 10km",
     description: "",
   },
   {
-    _id: ObjectID("626eae6e5c1c5c43d748f5b6"),
+    id: randomId(10),
     name: "Randonnée 6km",
     description: "",
   },

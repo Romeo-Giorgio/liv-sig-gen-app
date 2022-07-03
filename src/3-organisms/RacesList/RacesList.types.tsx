@@ -13,7 +13,7 @@ export interface Props {
   /** Callback fired when selected race changes. */
   onSelectedRaceChange: (value?: Race) => void;
   /** Callback fired when race edit button is clicked. */
-  onRaceEdit: (id: ObjectId) => void;
+  onRaceEdit: (id: string) => void;
   /** Callback fired when race delete button is clicked. */
-  onRaceDelete: (id: ObjectId) => void;
+  onRaceDelete: (id: string) => void;
 }

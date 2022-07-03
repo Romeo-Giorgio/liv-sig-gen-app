@@ -26,7 +26,7 @@ const RacesList = (props: Props) => {
         {racesList?.map((race, index) => (
           <StyledListItem
             key={index}
-            selected={race._id === selectedRace?._id ?? false}
+            selected={race.id === selectedRace?.id ?? false}
             onClick={(e) => {
               onSelectedRaceChange(race);
             }}
@@ -37,7 +37,7 @@ const RacesList = (props: Props) => {
             />
             <StyledListItemIcon
               onClick={(e) => {
-                onRaceEdit(race._id);
+                onRaceEdit(race.id);
                 e.stopPropagation();
               }}
             >
@@ -45,7 +45,7 @@ const RacesList = (props: Props) => {
             </StyledListItemIcon>
             <StyledListItemIcon
               onClick={(e) => {
-                onRaceDelete(race._id);
+                onRaceDelete(race.id);
                 e.stopPropagation();
               }}
             >

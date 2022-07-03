@@ -1,10 +1,9 @@
 //********** Props **********//
-import ObjectId from "bson-objectid";
 
 //********** Types **********//
 export interface Race {
   /** ID of the race. */
-  _id: ObjectId;
+  id: string;
   /** Name of the race. */
   name: string;
   /** Description of the race. */

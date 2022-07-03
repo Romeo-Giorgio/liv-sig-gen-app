@@ -1,7 +1,9 @@
 //********** Imports **********//
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import ObjectID from "bson-objectid";
-import { createDocumentAdapter } from "redux-document-adapter";
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from "@reduxjs/toolkit";
 import { Race } from "../3-organisms/RaceInput/RaceInput.types";
 import RacesDataService from "../services/races.service";
 
@@ -31,7 +33,7 @@ export const deleteRace = createAsyncThunk(
 );
 
 //********** Slice **********//
-export const racesAdapter = createDocumentAdapter<Race>({
+export const racesAdapter = createEntityAdapter<Race>({
   sortComparer: (a, b) => a.name.localeCompare(b.name),
 });
 
@@ -41,13 +43,7 @@ export const racesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getRacesList.fulfilled, (state, action) => {
-      console.log("extrareducer", action.payload);
-      const racesList: Race[] = action.payload.map((race) => ({
-        ...race,
-        _id: new ObjectID(action.payload[0]._id.str),
-      }));
-      console.log(racesList);
-      racesAdapter.setAll(state, racesList);
+      racesAdapter.setAll(state, action.payload);
     });
     builder.addCase(createRace.fulfilled, (state, action) => {
       racesAdapter.addOne(state, action.payload);

@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import RaceInput from "./RaceInput";
 import { Race } from "./RaceInput.types";
 import { useState } from "react";
-import ObjectID from "bson-objectid";
+import { randomId } from "../../const";
 
 //********** Stories **********//
 export default {
@@ -20,7 +20,7 @@ export default {
 
 export const DefaultStory = () => {
   const [currentRace, setCurrentRace] = useState<Race>({
-    _id: ObjectID("6261cb693a07cf594f3413d8"),
+    id: randomId(10),
     name: "Course 12km",
     description: "Course de 12km libre",
   });
