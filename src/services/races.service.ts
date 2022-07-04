@@ -1,5 +1,6 @@
 import http from "./http";
 import { Race } from "../3-organisms/RaceInput/RaceInput.types";
+import { DeleteRacePayload } from "./types";
 
 class RacesDataService {
   getAll() {
@@ -19,7 +20,7 @@ class RacesDataService {
     });
   }
   delete(id: string) {
-    return http.delete<Race>(`/races/${id}`);
+    return http.delete<DeleteRacePayload>(`/races/${id}`);
   }
 }
 

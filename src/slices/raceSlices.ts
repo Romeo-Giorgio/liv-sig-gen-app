@@ -3,6 +3,7 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
+  createAction,
 } from "@reduxjs/toolkit";
 import { Race } from "../3-organisms/RaceInput/RaceInput.types";
 import RacesDataService from "../services/races.service";
@@ -46,7 +47,11 @@ export const racesSlice = createSlice({
       racesAdapter.setAll(state, action.payload);
     });
     builder.addCase(createRace.fulfilled, (state, action) => {
+      console.log(action.payload);
       racesAdapter.addOne(state, action.payload);
+    });
+    builder.addCase(deleteRace.fulfilled, (state, action) => {
+      racesAdapter.removeOne(state, action.payload.deletedId);
     });
   },
 });

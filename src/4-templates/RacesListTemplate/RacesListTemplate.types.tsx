@@ -8,7 +8,7 @@ export interface Props {
   /** Boolean to manage the Add button's icon . */
   inputOpen?: boolean;
   /** Current race. */
-  selectedRace?: Race;
+  selectedRaceId?: string;
   /** Races list */
   racesList?: Race[];
   /** Callback fired when selected race changes. */

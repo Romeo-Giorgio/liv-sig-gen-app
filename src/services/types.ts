@@ -19,6 +19,8 @@ export interface RacePoint {
   latitude: string;
   /** Longitude of the point. */
   longitude: string;
+  /** Index of the point. */
+  nb: number;
 }
 
 export interface MapUtils {
@@ -34,4 +36,9 @@ export interface MapUtils {
   selectedRaceId?: string;
   /** Set the selected raceId. */
   setSelectedRaceId: (raceId: string) => void;
+}
+
+export interface DeleteRacePayload {
+  /** Deleted id in database. */
+  deletedId: string;
 }

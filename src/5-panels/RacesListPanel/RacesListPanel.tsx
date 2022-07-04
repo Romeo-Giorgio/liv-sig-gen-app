@@ -1,5 +1,4 @@
 //********** Imports **********//
-import { Props } from "./RacesListPanel.types";
 import {
   StyledListCard,
   StyledInputCard,
@@ -9,17 +8,21 @@ import { Fade } from "@mui/material";
 import RacesListTemplate from "../../4-templates/RacesListTemplate";
 import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
 import RaceInput from "../../3-organisms/RaceInput";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "../../store";
 import {
   createRace,
+  deleteRace,
   getRacesList,
   racesAdapter,
-} from "../../slices/racesSlices";
+} from "../../slices/raceSlices";
 import { randomId } from "../../const";
+import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
+import { MapUtils } from "../../services/types";
+import { deleteRacePointByRaceId } from "../../slices/racePointSlice";
 
 //********** Component **********//
-const MainBarPanel = (props: Props) => {
+const MainBarPanel = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRacesList());
@@ -27,7 +30,8 @@ const MainBarPanel = (props: Props) => {
 
   const [openRaceInputPanel, setOpenRaceInputPanel] = useState<boolean>(false);
   const [raceInput, setRaceInput] = useState<Race>();
-
+  const { setSelectedRaceId, selectedRaceId, newRaceId, setNewRaceId } =
+    useContext(MapUtilsContext) as MapUtils;
   const racesList = useSelector((state) =>
     racesAdapter.getSelectors().selectAll(state.races)
   );
@@ -36,12 +40,21 @@ const MainBarPanel = (props: Props) => {
     if (raceInput != null) {
       dispatch(
         createRace({
-          id: randomId(10),
+          id: newRaceId,
           name: raceInput.name,
           description: raceInput.description,
         } as Race)
       );
     }
+  };
+
+  const onSelectedRaceChange = (selectedRace: Race | undefined) => {
+    setSelectedRaceId(selectedRace?.id ?? "");
+  };
+
+  const onDeleteRaceClick = (raceId: string) => {
+    dispatch(deleteRacePointByRaceId(raceId));
+    dispatch(deleteRace(raceId));
   };
   return (
     <>
@@ -50,12 +63,14 @@ const MainBarPanel = (props: Props) => {
           <RacesListTemplate
             askToAddRace={() => {
               setOpenRaceInputPanel(!openRaceInputPanel);
+              setNewRaceId(randomId(10));
             }}
-            onSelectedRaceChange={() => {}}
-            onRaceDelete={() => {}}
+            onSelectedRaceChange={onSelectedRaceChange}
+            onRaceDelete={onDeleteRaceClick}
             onRaceEdit={() => {}}
             racesList={racesList}
             inputOpen={openRaceInputPanel}
+            selectedRaceId={selectedRaceId}
           />
         </StyledCardContent>
       </StyledListCard>

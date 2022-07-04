@@ -14,11 +14,13 @@ import {
   useSelector as useSelectorBase,
 } from "react-redux";
 
-import racesSlice from "./slices/racesSlices";
+import raceSlice from "./slices/raceSlices";
+import racePointSlice from "./slices/racePointSlice";
 
 //********** Store **********//
 const reducer = combineReducers({
-  races: racesSlice,
+  races: raceSlice,
+  racePoints: racePointSlice,
 });
 
 const store = configureStore({
