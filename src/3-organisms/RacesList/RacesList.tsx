@@ -13,7 +13,7 @@ import ObjectId from "bson-objectid";
 //********** Component **********//
 const RacesList = (props: Props) => {
   const {
-    selectedRace,
+    selectedRaceId,
     racesList,
     onSelectedRaceChange,
     onRaceEdit,
@@ -26,7 +26,7 @@ const RacesList = (props: Props) => {
         {racesList?.map((race, index) => (
           <StyledListItem
             key={index}
-            selected={race.id === selectedRace?.id ?? false}
+            selected={race.id === selectedRaceId ?? false}
             onClick={(e) => {
               onSelectedRaceChange(race);
             }}

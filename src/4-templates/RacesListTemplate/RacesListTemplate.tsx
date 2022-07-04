@@ -12,7 +12,7 @@ const RacesListTemplate = (props: Props) => {
     onSelectedRaceChange,
     onRaceEdit,
     onRaceDelete,
-    selectedRace,
+    selectedRaceId,
     racesList,
     inputOpen,
   } = props;
@@ -24,7 +24,7 @@ const RacesListTemplate = (props: Props) => {
           onSelectedRaceChange={onSelectedRaceChange}
           onRaceEdit={onRaceEdit}
           onRaceDelete={onRaceDelete}
-          selectedRace={selectedRace}
+          selectedRaceId={selectedRaceId}
           racesList={racesList}
         />
       </Grid>

@@ -7,7 +7,7 @@ export interface Props {
   /** CSS class applied to the root element. */
   className?: string;
   /** Current race. */
-  selectedRace?: Race;
+  selectedRaceId?: string;
   /** Races list */
   racesList?: Race[];
   /** Callback fired when selected race changes. */

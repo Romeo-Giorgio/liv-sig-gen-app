@@ -56,7 +56,7 @@ export const DefaultStory = () => {
 
   return (
     <RacesList
-      selectedRace={currentRace}
+      selectedRaceId={currentRace?.id}
       racesList={racesList}
       onSelectedRaceChange={(v) => {
         setCurrentRace(v);

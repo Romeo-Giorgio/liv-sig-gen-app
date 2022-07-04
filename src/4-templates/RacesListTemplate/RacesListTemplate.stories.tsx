@@ -40,7 +40,7 @@ export const DefaultStory = () => {
 
   return (
     <RacesListTemplate
-      selectedRace={currentRace}
+      selectedRaceId={currentRace?.id ?? ""}
       racesList={racesList}
       onSelectedRaceChange={(v) => {
         setCurrentRace(v);
