@@ -15,6 +15,13 @@ export default {
 };
 
 export const DefaultStory = () => {
-  return <GMap racePoints={[]}  onMapClick={(e:any)=>{}} onRacePointRightClick={(e:any)=>{}}/>;
+  return (
+    <GMap
+      racePoints={[]}
+      onMapClick={(e: any) => {}}
+      onRacePointRightClick={(e: any, id: string) => {}}
+      onMarkerDrop={(e: any, id: string) => {}}
+    />
+  );
 };
 DefaultStory.storyName = "Default";

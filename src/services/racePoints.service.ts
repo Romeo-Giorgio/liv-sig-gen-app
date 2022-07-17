@@ -1,6 +1,10 @@
 //********** Imports **********//
 import http from "./http";
-import { RacePoint } from "./types";
+import {
+  DeleteRacePointPayload,
+  RacePoint,
+  UpdateRacePointPayload,
+} from "./types";
 
 //********** Service **********//
 class RacePointsDataService {
@@ -26,7 +30,14 @@ class RacePointsDataService {
     });
   }
   delete(id: string) {
-    return http.delete<RacePoint>(`/racepoints/${id}`);
+    return http.delete<DeleteRacePointPayload>(`/racepoints/${id}`);
+  }
+  updateCoordinates(data: RacePoint) {
+    return http.put<UpdateRacePointPayload>(`/racepoints/${data.id}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }
 
