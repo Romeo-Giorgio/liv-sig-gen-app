@@ -18,9 +18,6 @@ export default {
 export const DefaultStory = () => {
   return (
     <MainMenuPanel
-      onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
-      onSignalersButtonClick={action("onSignalersButtonClick")}
-      onRacesButtonClick={action("onRacesButtonClick")}
     />
   );
 };

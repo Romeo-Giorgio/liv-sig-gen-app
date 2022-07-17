@@ -47,7 +47,6 @@ export const racesSlice = createSlice({
       racesAdapter.setAll(state, action.payload);
     });
     builder.addCase(createRace.fulfilled, (state, action) => {
-      console.log(action.payload);
       racesAdapter.addOne(state, action.payload);
     });
     builder.addCase(deleteRace.fulfilled, (state, action) => {

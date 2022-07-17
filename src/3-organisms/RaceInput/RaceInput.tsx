@@ -40,16 +40,6 @@ const RaceInput = (props: Props) => {
         />
       </SpacedGrid>
       <SpacedGrid item xs>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            setDrawMode(!drawMode);
-          }}
-        >
-          Tracer course
-        </Button>
-      </SpacedGrid>
-      <SpacedGrid item xs>
         <Button onClick={onCreateRace}>Enregistrer</Button>
       </SpacedGrid>
     </Grid>

@@ -2,22 +2,19 @@
 import { Props } from "./MainMenu.types";
 import { Divider } from "@mui/material";
 import { People, Timeline, Room } from "@mui/icons-material";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   StyledAppBar,
   StyledToolbar,
   StyledIconButton,
 } from "./MainMenu.slots";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import { MainMenuUtil } from "../../services/types";
 
 //********** Component **********//
 const MainMenu = (props: Props) => {
-  const {
-    onIntersectionsButtonClick,
-    onSignalersButtonClick,
-    onRacesButtonClick,
-  } = props;
-  const [mode, setMode] =
-    useState<"race" | "intersection" | "signaler">("race");
+  const {mode, setMode} = useContext(MainMenuContext) as MainMenuUtil;
+  
   return (
     <StyledAppBar>
       <StyledToolbar>
@@ -25,7 +22,6 @@ const MainMenu = (props: Props) => {
           selected={mode === "race"}
           onClick={() => {
             setMode("race");
-            if (onRacesButtonClick) onRacesButtonClick();
           }}
         >
           <Timeline />
@@ -35,7 +31,6 @@ const MainMenu = (props: Props) => {
           selected={mode === "intersection"}
           onClick={() => {
             setMode("intersection");
-            if (onIntersectionsButtonClick) onIntersectionsButtonClick();
           }}
         >
           <Room />
@@ -45,7 +40,6 @@ const MainMenu = (props: Props) => {
           selected={mode === "signaler"}
           onClick={() => {
             setMode("signaler");
-            if (onSignalersButtonClick) onSignalersButtonClick();
           }}
         >
           <People />

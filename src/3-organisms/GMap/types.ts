@@ -1,2 +1,0 @@
-//********** Props **********//
-export interface Props {}
