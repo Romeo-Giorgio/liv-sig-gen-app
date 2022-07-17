@@ -1,14 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GoogleMap, Marker, Polyline, useJsApiLoader } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  Marker,
+  Polyline,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 import { Props } from "./GMap.types";
 import { GOOGLE_MAP_API_KEY } from "../../api";
-import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import CustomMarker from "../../2-molecules/CustomMarker";
 import { MainMenuUtil } from "../../services/types";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
 
 const GMap = (props: Props) => {
-  const {racePoints, onMapClick, onRacePointRightClick}=props;
-  const {mode} = useContext(MainMenuContext) as MainMenuUtil;
-  
+  const { racePoints, onMapClick, onRacePointRightClick, onMarkerDrop } = props;
+  const { mode } = useContext(MainMenuContext) as MainMenuUtil;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
@@ -27,7 +32,7 @@ const GMap = (props: Props) => {
 
   const onMapLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
-    const lastPoint = racePoints[racePoints.length-1];
+    const lastPoint = racePoints[racePoints.length - 1];
     //map.fitBounds(mode==="intersection"?lastPoint:bounds);
     setMap(map);
   }, []);
@@ -36,7 +41,6 @@ const GMap = (props: Props) => {
     setMap(undefined);
   }, []);
 
-  
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -52,12 +56,27 @@ const GMap = (props: Props) => {
           Number(racePoint.latitude),
           Number(racePoint.longitude)
         );
-        return <Marker key={racePoint.id} position={latlng} label={`${index+1}`} draggable onRightClick={onRacePointRightClick}/>;
+        return (
+          <CustomMarker
+            key={racePoint.id}
+            id={racePoint.id.toString()}
+            position={latlng}
+            label={`${index + 1}`}
+            draggable={mode === "intersection"}
+            onMarkerRightClick={onRacePointRightClick}
+            onMarkerDrop={onMarkerDrop}
+          />
+        );
       })}
-      <Polyline path={racePoints.map((racePoint)=>new google.maps.LatLng(
-          Number(racePoint.latitude),
-          Number(racePoint.longitude)
-        ))}/>
+      <Polyline
+        path={racePoints.map(
+          (racePoint) =>
+            new google.maps.LatLng(
+              Number(racePoint.latitude),
+              Number(racePoint.longitude)
+            )
+        )}
+      />
     </GoogleMap>
   ) : (
     <></>

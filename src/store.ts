@@ -14,7 +14,7 @@ import {
   useSelector as useSelectorBase,
 } from "react-redux";
 
-import raceSlice from "./slices/raceSlices";
+import raceSlice from "./slices/raceSlice";
 import racePointSlice from "./slices/racePointSlice";
 
 //********** Store **********//

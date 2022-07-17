@@ -15,14 +15,13 @@ import {
   deleteRace,
   getRacesList,
   racesAdapter,
-} from "../../slices/raceSlices";
+} from "../../slices/raceSlice";
 import { randomId } from "../../const";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 import { MapUtils } from "../../services/types";
-import { deleteRacePointByRaceId } from "../../slices/racePointSlice";
 
 //********** Component **********//
-const MainBarPanel = () => {
+const RacesListPanel = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRacesList());
@@ -30,8 +29,9 @@ const MainBarPanel = () => {
 
   const [openRaceInputPanel, setOpenRaceInputPanel] = useState<boolean>(false);
   const [raceInput, setRaceInput] = useState<Race>();
-  const { setSelectedRaceId, selectedRaceId, newRaceId, setNewRaceId } =
-    useContext(MapUtilsContext) as MapUtils;
+  const { setSelectedRaceId, selectedRaceId } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
   const racesList = useSelector((state) =>
     racesAdapter.getSelectors().selectAll(state.races)
   );
@@ -40,9 +40,9 @@ const MainBarPanel = () => {
     if (raceInput != null) {
       dispatch(
         createRace({
-          id: newRaceId,
+          id: randomId(10),
           name: raceInput.name,
-          description: raceInput.description,
+          description: raceInput.description ?? "",
         } as Race)
       );
     }
@@ -53,7 +53,6 @@ const MainBarPanel = () => {
   };
 
   const onDeleteRaceClick = (raceId: string) => {
-    dispatch(deleteRacePointByRaceId(raceId));
     dispatch(deleteRace(raceId));
   };
   return (
@@ -63,7 +62,6 @@ const MainBarPanel = () => {
           <RacesListTemplate
             askToAddRace={() => {
               setOpenRaceInputPanel(!openRaceInputPanel);
-              setNewRaceId(randomId(10));
             }}
             onSelectedRaceChange={onSelectedRaceChange}
             onRaceDelete={onDeleteRaceClick}
@@ -93,6 +91,6 @@ const MainBarPanel = () => {
     </>
   );
 };
-MainBarPanel.displayName = "MainBarPanel";
+RacesListPanel.displayName = "RacesListPanel";
 
-export default MainBarPanel;
+export default RacesListPanel;
