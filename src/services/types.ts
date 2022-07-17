@@ -38,6 +38,15 @@ export interface MapUtils {
   setSelectedRaceId: (raceId: string) => void;
 }
 
+export type MainMenuMode = "race"|"intersection"|"signaler";
+
+export interface MainMenuUtil {
+  /** Current mode selected in menu. */
+  mode:MainMenuMode;
+  /** Set the current mode. */
+  setMode: (mode: MainMenuMode) => void;
+}
+
 export interface DeleteRacePayload {
   /** Deleted id in database. */
   deletedId: string;

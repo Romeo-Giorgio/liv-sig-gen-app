@@ -1,46 +1,29 @@
-import { Fade } from "@mui/material";
-import { createStore } from "@reduxjs/toolkit";
-import { useState } from "react";
+//********** Imports **********//
 import { Provider } from "react-redux";
+import MainMenuProvider, { MainMenuContext } from "./0-abstract/MainMenuContext/MainMenuContext";
 import MapUtilsProvider from "./0-abstract/MapUtilsContext/MapUtilsContext";
-import GMap from "./3-organisms/GMap/GMap";
 import MainMenuPanel from "./5-panels/MainMenuPanel";
-import RacesListPanel from "./5-panels/RacesListPanel";
-import SignalersListPanel from "./5-panels/SignalersListPanel";
+import MapHandler from "./5-panels/MapHandler";
+  import RacesListPanel from "./5-panels/RacesListPanel";
 import "./App.css";
 import store from "./store";
 
 //********** App **********//
-function App() {
-  const [showSignalersListPanel, setShowSignalersListPanel] =
-    useState<boolean>(false);
-
-  const onRacesButtonClick = () => {
-    setShowSignalersListPanel(false);
-  };
-  const onIntersectionsButtonClick = () => {
-    setShowSignalersListPanel(false);
-  };
-  const onSignalersButtonClick = () => {
-    setShowSignalersListPanel(true);
-  };
+function App() {  
   return (
     <>
       <Provider store={store}>
+        <MainMenuProvider>
         <MapUtilsProvider>
-          <GMap />
+          <MapHandler/>
+          
           <MainMenuPanel
-            onRacesButtonClick={onRacesButtonClick}
-            onIntersectionsButtonClick={onIntersectionsButtonClick}
-            onSignalersButtonClick={onSignalersButtonClick}
           />
           <RacesListPanel />
-          <Fade in={showSignalersListPanel} unmountOnExit>
-            <div>
-              <SignalersListPanel />
-            </div>
-          </Fade>
+          {/* <SignalersListPanel /> */}
         </MapUtilsProvider>
+        </MainMenuProvider>
+        
       </Provider>
     </>
   );

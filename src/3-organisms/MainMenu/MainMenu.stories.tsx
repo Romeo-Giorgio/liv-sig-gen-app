@@ -17,11 +17,7 @@ export default {
 
 export const DefaultStory = () => {
   return (
-    <MainMenu
-      onIntersectionsButtonClick={action("onIntersectionsButtonClick")}
-      onSignalersButtonClick={action("onSignalersButtonClick")}
-      onRacesButtonClick={action("onRacesButtonClick")}
-    />
+    <MainMenu/>
   );
 };
 DefaultStory.storyName = "Default";

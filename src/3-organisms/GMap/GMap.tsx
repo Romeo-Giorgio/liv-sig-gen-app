@@ -1,21 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import { Props } from "./types";
+import { GoogleMap, Marker, Polyline, useJsApiLoader } from "@react-google-maps/api";
+import { Props } from "./GMap.types";
 import { GOOGLE_MAP_API_KEY } from "../../api";
-import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
-import { MapUtils } from "../../services/types";
-import { useDispatch, useSelector } from "../../store";
-import {
-  createRacePoint,
-  getRacePointsListById,
-  racePointAdapter,
-} from "../../slices/racePointSlice";
-import { randomId } from "../../const";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import { MainMenuUtil } from "../../services/types";
 
-const GMap = (_: Props) => {
-  const { drawMode, newRaceId, selectedRaceId, setSelectedRaceId } = useContext(
-    MapUtilsContext
-  ) as MapUtils;
+const GMap = (props: Props) => {
+  const {racePoints, onMapClick, onRacePointRightClick}=props;
+  const {mode} = useContext(MainMenuContext) as MainMenuUtil;
+  
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
@@ -31,25 +24,11 @@ const GMap = (_: Props) => {
   };
 
   const [map, setMap] = useState();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (selectedRaceId != null) {
-      dispatch(getRacePointsListById(selectedRaceId));
-    }
-  }, [selectedRaceId]);
-
-  useEffect(() => {
-    console.log(newRaceId);
-  }, [newRaceId]);
-
-  const racePoints = useSelector((state) =>
-    racePointAdapter.getSelectors().selectAll(state.racePoints)
-  );
 
   const onMapLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
-    map.fitBounds(bounds);
+    const lastPoint = racePoints[racePoints.length-1];
+    //map.fitBounds(mode==="intersection"?lastPoint:bounds);
     setMap(map);
   }, []);
 
@@ -57,42 +36,28 @@ const GMap = (_: Props) => {
     setMap(undefined);
   }, []);
 
-  const onMapClick = React.useCallback(
-    function handleClick(event) {
-      if (drawMode && newRaceId != null) {
-        const lat = event.latLng.lat();
-        const lng = event.latLng.lng();
-        setSelectedRaceId(newRaceId);
-        dispatch(
-          createRacePoint({
-            id: randomId(10),
-            latitude: lat,
-            longitude: lng,
-            raceId: newRaceId,
-            nb: 0,
-          })
-        );
-      }
-    },
-    [drawMode, newRaceId]
-  );
+  
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={12}
+      zoom={10}
       onLoad={onMapLoad}
       onUnmount={onMapUnmount}
       onClick={onMapClick}
     >
       {/* Child components, such as markers, info windows, etc. */}
-      {racePoints.map((racePoint) => {
+      {racePoints.map((racePoint, index) => {
         const latlng = new google.maps.LatLng(
-          Number(racePoint.longitude),
-          Number(racePoint.latitude)
+          Number(racePoint.latitude),
+          Number(racePoint.longitude)
         );
-        return <Marker key={racePoint.id} position={latlng} />;
+        return <Marker key={racePoint.id} position={latlng} label={`${index+1}`} draggable onRightClick={onRacePointRightClick}/>;
       })}
+      <Polyline path={racePoints.map((racePoint)=>new google.maps.LatLng(
+          Number(racePoint.latitude),
+          Number(racePoint.longitude)
+        ))}/>
     </GoogleMap>
   ) : (
     <></>
