@@ -1,5 +1,5 @@
 //********** Imports **********//
-import { Signaler } from "../../3-organisms/SignalerInput/SignalerInput.types";
+import { Signaler } from "../../services/types";
 
 //********** Props **********//
 export interface Props {
@@ -12,7 +12,7 @@ export interface Props {
   /** Signalers list */
   signalersList?: Signaler[];
   /** Callback fired when selected signaler changes. */
-  onSelectedSignalerChange: (value?: Signaler) => void;
+  onSelectedSignalerChange: (value: Signaler) => void;
   /** Callback fired when signaler edit button is clicked. */
   onSignalerEdit: (id: string) => void;
   /** Callback fired when signaler delete button is clicked. */

@@ -7,72 +7,70 @@ import {
 } from "./SignalersListPanel.slots";
 import { Fade } from "@mui/material";
 import SignalersListTemplate from "../../4-templates/SignalersListTemplate";
-import { Signaler } from "../../3-organisms/SignalerInput/SignalerInput.types";
 import SignalerInput from "../../3-organisms/SignalerInput";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import { MainMenuUtils, MapUtils, Signaler } from "../../services/types";
+import { useDispatch, useSelector } from "../../store";
+import { getSignalersList, signalerAdapter } from "../../slices/signalerSlice";
+import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 
 //********** Component **********//
 const MainBarPanel = (props: Props) => {
   const [openSignalerInputPanel, setOpenSignalerInputPanel] =
     useState<boolean>(false);
-  // Using the storybook, the component need data to display coherent HMI.
-  // TODO: When the backend will be connected through API, this component will use the redux store to get its data.
-  const temporaryList: Signaler[] = [
-    {
-      id: "0000",
-      firstName: "Tony",
-      lastName: "Stark",
-      phone: "0678912345",
-      mail: "ton.sta@gmail.com",
-    },
-    {
-      id: "0001",
-      firstName: "John",
-      lastName: "Doe",
-      phone: "0678912345",
-      mail: "joh.doe@gmail.com",
-    },
-    {
-      id: "0002",
-      firstName: "Patricien",
-      lastName: "Cromwell",
-      phone: "0678912345",
-      mail: "pat.cro@gmail.com",
-    },
-    {
-      id: "0003",
-      firstName: "Catricien",
-      lastName: "Promwell",
-      phone: "0678912345",
-      mail: "cat.pro@gmail.com",
-    },
-  ];
+  const { mode } = useContext(MainMenuContext) as MainMenuUtils;
+  const { setSelectedSignaler, selectedSignaler } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSignalersList());
+  }, [dispatch]);
 
+  const signalers = useSelector((state) =>
+    signalerAdapter.getSelectors().selectAll(state.signalers)
+  );
+  const onSelectedSignalerChange = (signaler: Signaler) => {
+    setSelectedSignaler({
+      id: signaler.id,
+      drivingLicence: signaler.drivingLicence,
+      firstName: signaler.firstName,
+      lastName: signaler.lastName,
+      latitude: signaler.latitude,
+      longitude: signaler.longitude,
+      mail: signaler.mail,
+      phone: signaler.phone,
+      referent: signaler.referent,
+    });
+  };
   return (
     <>
-      <StyledListCard>
-        <StyledCardContent>
-          <SignalersListTemplate
-            askToAddSignaler={() => {
-              setOpenSignalerInputPanel(!openSignalerInputPanel);
-            }}
-            onSelectedSignalerChange={() => {}}
-            onSignalerDelete={() => {}}
-            onSignalerEdit={() => {}}
-            selectedSignaler={temporaryList[1]}
-            signalersList={temporaryList}
-            inputOpen={openSignalerInputPanel}
-          />
-        </StyledCardContent>
-      </StyledListCard>
-      <Fade in={openSignalerInputPanel}>
+      <Fade in={mode === "signaler"} unmountOnExit>
+        <StyledListCard>
+          <StyledCardContent>
+            <SignalersListTemplate
+              askToAddSignaler={() => {
+                setOpenSignalerInputPanel(!openSignalerInputPanel);
+              }}
+              onSelectedSignalerChange={onSelectedSignalerChange}
+              onSignalerDelete={() => {}}
+              onSignalerEdit={() => {}}
+              selectedSignaler={selectedSignaler}
+              signalersList={signalers}
+              inputOpen={openSignalerInputPanel}
+            />
+          </StyledCardContent>
+        </StyledListCard>
+      </Fade>
+      <Fade in={openSignalerInputPanel && mode === "signaler"}>
         <StyledInputCard>
           <StyledCardContent>
             <SignalerInput
               onSignalerBlur={() => {}}
               onSignalerChange={() => {}}
-              signaler={{} as Signaler}
-              signalersList={temporaryList}
+              signaler={selectedSignaler}
+              signalersList={signalers}
             />
           </StyledCardContent>
         </StyledInputCard>

@@ -9,7 +9,7 @@ export const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
   top: 0,
-  left: "calc(50% - 75px)",
+  left: "calc(50% - 90px)",
   boxShadow: "none",
 }));
 export const StyledCardContent = styled(CardContent)<CardContentProps>(

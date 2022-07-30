@@ -1,5 +1,3 @@
-//********** Imports **********//
-
 //********** Types **********//
 export interface Race {
   /** ID of the race. */
@@ -16,21 +14,46 @@ export interface RacePoint {
   /** ID of the race. */
   raceId: string;
   /** Latitude of the point. */
-  latitude: string;
+  latitude: number;
   /** Longitude of the point. */
-  longitude: string;
+  longitude: number;
+}
+
+export interface Signaler {
+  /** Id of the signaler. */
+  id: string;
+  /** Signaler's referent. */
+  referent?: string;
+  /** Signaler's lat name. */
+  lastName: string;
+  /** Signaler's first name. */
+  firstName: string;
+  /** Signaler's phone number. */
+  phone: string;
+  /** Signaler's mail adress. */
+  mail: string;
+  /** Signaler have driving licence ? */
+  drivingLicence: boolean;
+  /** Latitude of the signaler. */
+  latitude: number;
+  /** Longitude of the signaler. */
+  longitude: number;
 }
 
 export interface MapUtils {
-  /** Race id of the selected race. */
+  /** Id of the selected race. */
   selectedRaceId?: string;
   /** Set the selected raceId. */
   setSelectedRaceId: (raceId: string) => void;
+  /** Selected signaler. */
+  selectedSignaler?: Signaler;
+  /** Set the selected signaler. */
+  setSelectedSignaler: (signaler?: Signaler) => void;
 }
 
-export type MainMenuMode = "race" | "intersection" | "signaler";
+export type MainMenuMode = "race" | "intersection" | "signaler" | "export";
 
-export interface MainMenuUtil {
+export interface MainMenuUtils {
   /** Current mode selected in menu. */
   mode: MainMenuMode;
   /** Set the current mode. */
@@ -46,6 +69,14 @@ export interface DeleteRacePointPayload {
   deletedId: string;
 }
 export interface UpdateRacePointPayload {
-  /** Deleted id in database. */
+  /** Updated element in database. */
   updatedRacePoint: RacePoint;
+}
+export interface DeleteSignalerPayload {
+  /** Deleted id in database. */
+  deletedId: string;
+}
+export interface UpdateSignalerPayload {
+  /** Updated element in database. */
+  updatedSignaler: Signaler;
 }

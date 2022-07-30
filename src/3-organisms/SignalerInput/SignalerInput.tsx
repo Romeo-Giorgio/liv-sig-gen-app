@@ -1,7 +1,8 @@
 //********** Imports **********//
-import { Props, Signaler } from "./SignalerInput.types";
+import { Props } from "./SignalerInput.types";
 import { Grid, Input, InputLabel, MenuItem } from "@mui/material";
 import { StyledGrid, StyledSelect } from "./SignalerInput.slots";
+import { Signaler } from "../../services/types";
 
 //********** Component **********//
 const SignalerInput = (props: Props) => {
@@ -43,7 +44,7 @@ const SignalerInput = (props: Props) => {
         <Grid item>
           <InputLabel>Référent</InputLabel>
           <StyledSelect
-            value={signaler?.referrer != null ? signaler?.referrer : ""}
+            value={signaler?.referent != null ? signaler?.referent : ""}
             onChange={(e, v) => {
               onSignalerChange({
                 ...signaler,
@@ -55,7 +56,7 @@ const SignalerInput = (props: Props) => {
               <em> </em>
             </MenuItem>
             {signalersList?.map((k, i) => (
-              <MenuItem value={k.id}>
+              <MenuItem value={k.id} key={`menuItem-${k.id}`}>
                 <em>{`${k.firstName} ${k.lastName}`}</em>
               </MenuItem>
             ))}

@@ -18,7 +18,8 @@ import {
 } from "../../slices/raceSlice";
 import { randomId } from "../../const";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
-import { MapUtils } from "../../services/types";
+import { MainMenuUtils, MapUtils } from "../../services/types";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
 
 //********** Component **********//
 const RacesListPanel = () => {
@@ -32,6 +33,7 @@ const RacesListPanel = () => {
   const { setSelectedRaceId, selectedRaceId } = useContext(
     MapUtilsContext
   ) as MapUtils;
+  const { mode } = useContext(MainMenuContext) as MainMenuUtils;
   const racesList = useSelector((state) =>
     racesAdapter.getSelectors().selectAll(state.races)
   );
@@ -72,7 +74,7 @@ const RacesListPanel = () => {
           />
         </StyledCardContent>
       </StyledListCard>
-      <Fade in={openRaceInputPanel}>
+      <Fade in={openRaceInputPanel && mode === "race"}>
         <StyledInputCard>
           <StyledCardContent>
             <RaceInput
@@ -91,6 +93,6 @@ const RacesListPanel = () => {
     </>
   );
 };
-RacesListPanel.displayName = "RacesListPanel";
 
+RacesListPanel.displayName = "RacesListPanel";
 export default RacesListPanel;

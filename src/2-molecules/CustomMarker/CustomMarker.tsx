@@ -1,18 +1,19 @@
 //********** Imports **********//
 import { Marker } from "@react-google-maps/api";
-import { Props } from "./CustomMarker.types";
+import { markerByType, Props } from "./CustomMarker.types";
 
 //********** Component **********//
 const CustomMarker = (props: Props) => {
-  const { id, onMarkerRightClick, onMarkerDrop } = props;
+  const { id, onMarkerRightClick, onMarkerDrop, markerType } = props;
 
   return (
     <Marker
+      //icon={markerByType[markerType]}
       onRightClick={(e) => {
-        onMarkerRightClick(e, id);
+        if (onMarkerRightClick) onMarkerRightClick(e, id);
       }}
       onDragEnd={(e) => {
-        onMarkerDrop(e, id);
+        if (onMarkerDrop) onMarkerDrop(e, id);
       }}
       {...props}
     />

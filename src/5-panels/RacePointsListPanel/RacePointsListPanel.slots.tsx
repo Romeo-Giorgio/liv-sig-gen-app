@@ -9,9 +9,8 @@ export const StyledListCard = styled(Card)<CardProps>(({ theme }) => ({
   backdropFilter: "blur(30px)",
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
-  top: "20vh",
-  bottom: "20vh",
-  right: 8,
+  top: "33%",
+  left: 8,
   boxShadow: "none",
 }));
 
@@ -21,7 +20,7 @@ export const StyledInputCard = styled(Card)<CardProps>(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   position: "absolute",
   bottom: 10,
-  left: "calc(50% - 303px)",
+  left: "calc(50% - 99px)",
   boxShadow: "none",
 }));
 

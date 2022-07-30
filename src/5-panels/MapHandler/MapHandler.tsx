@@ -4,23 +4,29 @@ import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContex
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 import GMap from "../../3-organisms/GMap/GMap";
 import { randomId } from "../../const";
-import { MainMenuUtil, MapUtils } from "../../services/types";
+import { MainMenuUtils, MapUtils, Race } from "../../services/types";
 import {
   createRacePoint,
   deleteRacePointById,
   getRacePointsListById,
-  racePointAdapter,
   updateRacePointCoordinates,
 } from "../../slices/racePointSlice";
+import { racesAdapter } from "../../slices/raceSlice";
+import { updateSignaler, signalerAdapter } from "../../slices/signalerSlice";
 import { useDispatch, useSelector } from "../../store";
 
 //********** Component **********//
 const MapHandler = () => {
-  const racePoints = useSelector((state) =>
-    racePointAdapter.getSelectors().selectAll(state.racePoints)
+  const races = useSelector((state) =>
+    racesAdapter.getSelectors().selectAll(state.races)
   );
-  const { selectedRaceId } = useContext(MapUtilsContext) as MapUtils;
-  const { mode } = useContext(MainMenuContext) as MainMenuUtil;
+  const signalers = useSelector((state) =>
+    signalerAdapter.getSelectors().selectAll(state.signalers)
+  );
+  const { selectedRaceId, selectedSignaler } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
+  const { mode } = useContext(MainMenuContext) as MainMenuUtils;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,6 +45,16 @@ const MapHandler = () => {
           latitude: lat,
           longitude: lng,
           raceId: selectedRaceId,
+        })
+      );
+    } else if (mode === "signaler" && selectedSignaler != null) {
+      const lat = event.latLng.lat();
+      const lng = event.latLng.lng();
+      dispatch(
+        updateSignaler({
+          ...selectedSignaler,
+          latitude: lat,
+          longitude: lng,
         })
       );
     }
@@ -66,10 +82,15 @@ const MapHandler = () => {
   };
   return (
     <GMap
-      racePoints={racePoints}
+      races={
+        mode !== "export" && mode !== "signaler"
+          ? races.filter((race: Race) => race.id === selectedRaceId)
+          : races
+      }
       onMapClick={onMapClick}
       onRacePointRightClick={onRacePointRightClick}
-      onMarkerDrop={onRacePointDrop}
+      onRacePointMarkerDrop={onRacePointDrop}
+      signalers={signalers}
     />
   );
 };

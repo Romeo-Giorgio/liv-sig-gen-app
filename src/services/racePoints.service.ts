@@ -9,7 +9,6 @@ import {
 //********** Service **********//
 class RacePointsDataService {
   getAll() {
-    const data = http.get<Array<RacePoint>>("./racepoints");
     return http.get<Array<RacePoint>>("./racepoints");
   }
 

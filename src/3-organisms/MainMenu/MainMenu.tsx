@@ -1,7 +1,7 @@
 //********** Imports **********//
 import { Props } from "./MainMenu.types";
 import { Divider } from "@mui/material";
-import { People, Timeline, Room } from "@mui/icons-material";
+import { People, Timeline, Room, ExitToApp } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import {
   StyledAppBar,
@@ -9,12 +9,12 @@ import {
   StyledIconButton,
 } from "./MainMenu.slots";
 import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
-import { MainMenuUtil } from "../../services/types";
+import { MainMenuUtils } from "../../services/types";
 
 //********** Component **********//
 const MainMenu = (props: Props) => {
-  const {mode, setMode} = useContext(MainMenuContext) as MainMenuUtil;
-  
+  const { mode, setMode } = useContext(MainMenuContext) as MainMenuUtils;
+
   return (
     <StyledAppBar>
       <StyledToolbar>
@@ -43,6 +43,15 @@ const MainMenu = (props: Props) => {
           }}
         >
           <People />
+        </StyledIconButton>
+        <Divider orientation="vertical" variant="middle" flexItem />
+        <StyledIconButton
+          selected={mode === "export"}
+          onClick={() => {
+            setMode("export");
+          }}
+        >
+          <ExitToApp />
         </StyledIconButton>
       </StyledToolbar>
     </StyledAppBar>

@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 //********** Styles **********//
 export const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
   position: "relative",
-  maxWidth: "150px",
+  maxWidth: "180px",
   borderRadius: "50px",
   backgroundColor: theme.palette.background.paper,
 }));

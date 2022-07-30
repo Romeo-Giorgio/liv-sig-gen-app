@@ -9,6 +9,13 @@ import RacePointsDataService from "../services/racePoints.service";
 import { RacePoint } from "../services/types";
 
 //********** Thunks **********//
+export const getAllRacePoints = createAsyncThunk(
+  "racePoints/getAllRacePoints",
+  async (_, thunkAPI) => {
+    const response = await RacePointsDataService.getAll();
+    return response.data;
+  }
+);
 export const getRacePointsListById = createAsyncThunk(
   "racePoints/getRacePointsListById",
   async (raceId: string, thunkAPI) => {
@@ -51,6 +58,9 @@ export const racePointSlice = createSlice({
   initialState: racePointAdapter.getInitialState({}),
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getAllRacePoints.fulfilled, (state, action) => {
+      racePointAdapter.setAll(state, action.payload);
+    });
     builder.addCase(getRacePointsListById.fulfilled, (state, action) => {
       racePointAdapter.setAll(state, action.payload);
     });

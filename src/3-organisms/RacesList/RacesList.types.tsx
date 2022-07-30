@@ -1,6 +1,6 @@
 //********** Imports **********//
 import ObjectId from "bson-objectid";
-import { Race } from "../RaceInput/RaceInput.types";
+import { Race } from "../../services/types";
 
 //********** Props **********//
 export interface Props {

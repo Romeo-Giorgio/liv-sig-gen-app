@@ -8,12 +8,26 @@ import {
 import { Props } from "./GMap.types";
 import { GOOGLE_MAP_API_KEY } from "../../api";
 import CustomMarker from "../../2-molecules/CustomMarker";
-import { MainMenuUtil } from "../../services/types";
+import { MainMenuUtils, MapUtils } from "../../services/types";
 import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import { MarkerType } from "../../2-molecules/CustomMarker/CustomMarker.types";
+import { useDispatch, useSelector } from "../../store";
+import {
+  getAllRacePoints,
+  racePointAdapter,
+} from "../../slices/racePointSlice";
+import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 
 const GMap = (props: Props) => {
-  const { racePoints, onMapClick, onRacePointRightClick, onMarkerDrop } = props;
-  const { mode } = useContext(MainMenuContext) as MainMenuUtil;
+  const {
+    races,
+    onMapClick,
+    onRacePointRightClick,
+    onRacePointMarkerDrop,
+    signalers,
+  } = props;
+  const { mode } = useContext(MainMenuContext) as MainMenuUtils;
+  const { setSelectedRaceId } = useContext(MapUtilsContext) as MapUtils;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
@@ -29,11 +43,20 @@ const GMap = (props: Props) => {
   };
 
   const [map, setMap] = useState();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (mode === "export" || mode === "signaler") {
+      setSelectedRaceId("");
+      dispatch(getAllRacePoints());
+    }
+  }, [mode]);
 
+  const racePoints = useSelector((state) =>
+    racePointAdapter.getSelectors().selectAll(state.racePoints)
+  );
   const onMapLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds();
-    const lastPoint = racePoints[racePoints.length - 1];
-    //map.fitBounds(mode==="intersection"?lastPoint:bounds);
+
     setMap(map);
   }, []);
 
@@ -51,32 +74,59 @@ const GMap = (props: Props) => {
       onClick={onMapClick}
     >
       {/* Child components, such as markers, info windows, etc. */}
-      {racePoints.map((racePoint, index) => {
+      {races.map((race) => (
+        <React.Fragment key={`ReactFragmentRace-${race.id}`}>
+          {racePoints
+            .filter((racePoint) => racePoint.raceId === race.id)
+            .map((racePoint, index) => {
+              const latlng = new google.maps.LatLng(
+                Number(racePoint.latitude),
+                Number(racePoint.longitude)
+              );
+              return (
+                <CustomMarker
+                  key={`racePointMarker-${racePoint.id}`}
+                  id={racePoint.id.toString()}
+                  position={latlng}
+                  markerType={MarkerType.CURRENTSIGNALER}
+                  label={`${index + 1}`}
+                  draggable={mode === "intersection"}
+                  onMarkerRightClick={onRacePointRightClick}
+                  onMarkerDrop={onRacePointMarkerDrop}
+                />
+              );
+            })}
+          <Polyline
+            key={`polyline-${race.id}`}
+            path={racePoints
+              .filter((racePoint) => racePoint.raceId === race.id)
+              .map(
+                (racePoint) =>
+                  new google.maps.LatLng(
+                    Number(racePoint.latitude),
+                    Number(racePoint.longitude)
+                  )
+              )}
+          />
+        </React.Fragment>
+      ))}
+
+      {signalers.map((signaler, index) => {
         const latlng = new google.maps.LatLng(
-          Number(racePoint.latitude),
-          Number(racePoint.longitude)
+          Number(signaler.latitude),
+          Number(signaler.longitude)
         );
         return (
           <CustomMarker
-            key={racePoint.id}
-            id={racePoint.id.toString()}
+            key={`signalerMarker-${signaler.id}`}
+            id={signaler.id}
             position={latlng}
-            label={`${index + 1}`}
-            draggable={mode === "intersection"}
-            onMarkerRightClick={onRacePointRightClick}
-            onMarkerDrop={onMarkerDrop}
+            markerType={MarkerType.CURRENTSIGNALER}
+            label={`${signaler.firstName} ${signaler.lastName}`}
+            draggable={mode === "signaler"}
           />
         );
       })}
-      <Polyline
-        path={racePoints.map(
-          (racePoint) =>
-            new google.maps.LatLng(
-              Number(racePoint.latitude),
-              Number(racePoint.longitude)
-            )
-        )}
-      />
     </GoogleMap>
   ) : (
     <></>

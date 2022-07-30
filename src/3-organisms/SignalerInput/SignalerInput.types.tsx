@@ -1,18 +1,6 @@
-//********** Types **********//
-export interface Signaler {
-  /** ID of the signaler. */
-  id: string;
-  /** LastName of the signaler. */
-  lastName: string;
-  /** FirstName of the signaler. */
-  firstName: string;
-  /** Phone of the signaler.*/
-  phone: string;
-  /** Mail of the signaler. */
-  mail: string;
-  /** Referrer of the signaler. */
-  referrer?: string;
-}
+//********** Imports **********//
+import { Signaler } from "../../services/types";
+
 //********** Props **********//
 export interface Props {
   /** CSS class applied to the root element. */

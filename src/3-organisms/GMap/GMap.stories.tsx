@@ -17,10 +17,11 @@ export default {
 export const DefaultStory = () => {
   return (
     <GMap
-      racePoints={[]}
+      races={[]}
       onMapClick={(e: any) => {}}
       onRacePointRightClick={(e: any, id: string) => {}}
-      onMarkerDrop={(e: any, id: string) => {}}
+      onRacePointMarkerDrop={(e: any, id: string) => {}}
+      signalers={[]}
     />
   );
 };
