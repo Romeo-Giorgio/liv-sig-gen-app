@@ -8,7 +8,7 @@ const CustomMarker = (props: Props) => {
 
   return (
     <Marker
-      //icon={markerByType[markerType]}
+      icon={markerByType[markerType]}
       onRightClick={(e) => {
         if (onMarkerRightClick) onMarkerRightClick(e, id);
       }}

@@ -1,14 +1,5 @@
-//********** Props **********//
-
-//********** Types **********//
-export interface Race {
-  /** ID of the race. */
-  id: string;
-  /** Name of the race. */
-  name: string;
-  /** Description of the race. */
-  description?: string;
-}
+//********** Imports **********//
+import { Race } from "../../services/types";
 
 //********** Props **********//
 export interface Props {
@@ -16,10 +7,8 @@ export interface Props {
   className?: string;
   /** Current race. */
   race?: Race;
-  /** Callback fired when one of the current race properties is changed. */
-  onRaceChange: (value?: Race) => void;
   /** Callback fired when race's add point  button is clicked. */
   onAddPoint: () => void;
-  /** Callback fired when the race creation form is submited. */
-  onCreateRace: () => void;
+  /** Callback fired when save button is clicked. */
+  onRaceSave: () => void;
 }

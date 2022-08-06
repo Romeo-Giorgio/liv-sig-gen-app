@@ -18,7 +18,7 @@ const RacePointsListPanel = () => {
   const [selectedRacePoint, setSelectedRacePoint] =
     useState<number | undefined>();
   const { mode } = useContext(MainMenuContext) as MainMenuUtils;
-  const { selectedRaceId } = useContext(MapUtilsContext) as MapUtils;
+  const { selectedRace } = useContext(MapUtilsContext) as MapUtils;
   const racePoints = useSelector((state) =>
     racePointAdapter.getSelectors().selectAll(state.racePoints)
   );
@@ -34,7 +34,7 @@ const RacePointsListPanel = () => {
     dispatch(deleteRacePointById(racePointId.toString()));
   };
   return (
-    <Fade in={mode === "intersection" && selectedRaceId != ""} unmountOnExit>
+    <Fade in={mode === "intersection" && selectedRace?.id != ""} unmountOnExit>
       <StyledListCard>
         <StyledCardContent>
           <RacePointsListTemplate

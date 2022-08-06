@@ -2,8 +2,8 @@
 import { action } from "@storybook/addon-actions";
 import RacesList from "./RacesList";
 import { useState } from "react";
-import { Race } from "../RaceInput/RaceInput.types";
 import { randomId } from "../../const";
+import { Race } from "../../services/types";
 
 //********** Stories **********//
 export default {
@@ -23,26 +23,31 @@ const list: Race[] = [
     id: randomId(10),
     name: "Course 10km",
     description: "Course chronométrée de 10",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Course 6km",
     description: "Course libre",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Course 4km",
     description: "",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Randonnée 10km",
     description: "",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Randonnée 6km",
     description: "",
+    color: "#0000FF",
   },
 ];
 
@@ -52,6 +57,7 @@ export const DefaultStory = () => {
     id: randomId(10),
     name: "Course 10km",
     description: "Course chronométrée de 10",
+    color: "#0000FF",
   });
 
   return (

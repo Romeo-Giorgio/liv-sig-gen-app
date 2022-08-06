@@ -9,6 +9,9 @@ import {
 } from "./RacesList.slots";
 import { Delete, Edit } from "@mui/icons-material";
 import ObjectId from "bson-objectid";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import { useContext } from "react";
+import { MainMenuUtils } from "../../services/types";
 
 //********** Component **********//
 const RacesList = (props: Props) => {
@@ -19,6 +22,7 @@ const RacesList = (props: Props) => {
     onRaceEdit,
     onRaceDelete,
   } = props;
+  const { mode } = useContext(MainMenuContext) as MainMenuUtils;
 
   return (
     <StyledBox>
@@ -35,22 +39,26 @@ const RacesList = (props: Props) => {
               primary={race?.name}
               secondary={race?.description}
             />
-            <StyledListItemIcon
-              onClick={(e) => {
-                onRaceEdit(race.id);
-                e.stopPropagation();
-              }}
-            >
-              <Edit />
-            </StyledListItemIcon>
-            <StyledListItemIcon
-              onClick={(e) => {
-                onRaceDelete(race.id);
-                e.stopPropagation();
-              }}
-            >
-              <Delete />
-            </StyledListItemIcon>
+            {mode === "race" && (
+              <StyledListItemIcon
+                onClick={(e) => {
+                  onRaceEdit(race.id);
+                  e.stopPropagation();
+                }}
+              >
+                <Edit />
+              </StyledListItemIcon>
+            )}
+            {mode === "race" && (
+              <StyledListItemIcon
+                onClick={(e) => {
+                  onRaceDelete(race.id);
+                  e.stopPropagation();
+                }}
+              >
+                <Delete />
+              </StyledListItemIcon>
+            )}
           </StyledListItem>
         ))}
       </StyledList>

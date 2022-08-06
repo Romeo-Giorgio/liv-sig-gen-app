@@ -1,12 +1,24 @@
 //********** Imports **********//
 import { Props } from "./SignalerInput.types";
-import { Grid, Input, InputLabel, MenuItem } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Grid,
+  Input,
+  InputLabel,
+  MenuItem,
+} from "@mui/material";
 import { StyledGrid, StyledSelect } from "./SignalerInput.slots";
-import { Signaler } from "../../services/types";
+import { MapUtils, Signaler } from "../../services/types";
+import { useContext } from "react";
+import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 
 //********** Component **********//
 const SignalerInput = (props: Props) => {
-  const { signaler, signalersList, onSignalerBlur, onSignalerChange } = props;
+  const { signalersList, onSignalerSave } = props;
+  const { setSelectedSignaler, selectedSignaler } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
 
   return (
     <Grid container direction="column">
@@ -14,41 +26,39 @@ const SignalerInput = (props: Props) => {
         <Grid item>
           <InputLabel>Nom</InputLabel>
           <Input
-            value={signaler?.lastName}
+            value={selectedSignaler?.lastName}
             onChange={(e) => {
-              onSignalerChange({
-                ...signaler,
+              setSelectedSignaler({
+                ...selectedSignaler,
                 lastName: e.target.value,
               } as Signaler);
-            }}
-            onBlur={() => {
-              if (onSignalerBlur) onSignalerBlur(signaler);
             }}
           />
         </Grid>
         <Grid item>
           <InputLabel>Téléphone</InputLabel>
           <Input
-            value={signaler?.phone}
+            value={selectedSignaler?.phone}
             onChange={(e) => {
-              onSignalerChange({
-                ...signaler,
+              setSelectedSignaler({
+                ...selectedSignaler,
                 phone: e.target.value,
               } as Signaler);
-            }}
-            onBlur={() => {
-              if (onSignalerBlur) onSignalerBlur(signaler);
             }}
           />
         </Grid>
         <Grid item>
           <InputLabel>Référent</InputLabel>
           <StyledSelect
-            value={signaler?.referent != null ? signaler?.referent : ""}
+            value={
+              selectedSignaler?.referent != null
+                ? selectedSignaler?.referent
+                : ""
+            }
             onChange={(e, v) => {
-              onSignalerChange({
-                ...signaler,
-                referrer: e.target.value,
+              setSelectedSignaler({
+                ...selectedSignaler,
+                referent: e.target.value,
               } as Signaler);
             }}
           >
@@ -67,32 +77,40 @@ const SignalerInput = (props: Props) => {
         <Grid item>
           <InputLabel>Prénom</InputLabel>
           <Input
-            value={signaler?.firstName}
+            required
+            value={selectedSignaler?.firstName}
             onChange={(e) => {
-              onSignalerChange({
-                ...signaler,
+              setSelectedSignaler({
+                ...selectedSignaler,
                 firstName: e.target.value,
               } as Signaler);
-            }}
-            onBlur={() => {
-              if (onSignalerBlur) onSignalerBlur(signaler);
             }}
           />
         </Grid>
         <Grid item>
           <InputLabel>Mail</InputLabel>
           <Input
-            value={signaler?.mail}
+            value={selectedSignaler?.mail}
             onChange={(e) => {
-              onSignalerChange({
-                ...signaler,
+              setSelectedSignaler({
+                ...selectedSignaler,
                 mail: e.target.value,
               } as Signaler);
             }}
-            onBlur={() => {
-              if (onSignalerBlur) onSignalerBlur(signaler);
+          />
+        </Grid>
+        <Grid item>
+          <InputLabel>Permis</InputLabel>
+          <Checkbox
+            checked={selectedSignaler?.drivingLicence}
+            onChange={(e) => {
+              setSelectedSignaler({
+                ...selectedSignaler,
+                drivingLicence: e.target.checked,
+              } as Signaler);
             }}
           />
+          <Button onClick={onSignalerSave}>Enregistrer</Button>
         </Grid>
       </StyledGrid>
     </Grid>

@@ -6,6 +6,8 @@ export interface Race {
   name: string;
   /** Description of the race. */
   description?: string;
+  /** Color of the race. */
+  color: string;
 }
 
 export interface RacePoint {
@@ -35,16 +37,16 @@ export interface Signaler {
   /** Signaler have driving licence ? */
   drivingLicence: boolean;
   /** Latitude of the signaler. */
-  latitude: number;
+  latitude?: number;
   /** Longitude of the signaler. */
-  longitude: number;
+  longitude?: number;
 }
 
 export interface MapUtils {
-  /** Id of the selected race. */
-  selectedRaceId?: string;
-  /** Set the selected raceId. */
-  setSelectedRaceId: (raceId: string) => void;
+  /** Selected race. */
+  selectedRace?: Race;
+  /** Set the selected race. */
+  setSelectedRace: (race: Race | undefined) => void;
   /** Selected signaler. */
   selectedSignaler?: Signaler;
   /** Set the selected signaler. */
@@ -63,6 +65,10 @@ export interface MainMenuUtils {
 export interface DeleteRacePayload {
   /** Deleted id in database. */
   deletedId: string;
+}
+export interface UpdateRacePayload {
+  /** Updated element in database. */
+  updatedRace: Race;
 }
 export interface DeleteRacePointPayload {
   /** Deleted id in database. */

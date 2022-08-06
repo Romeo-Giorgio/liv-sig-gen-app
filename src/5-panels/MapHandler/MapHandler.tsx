@@ -23,20 +23,20 @@ const MapHandler = () => {
   const signalers = useSelector((state) =>
     signalerAdapter.getSelectors().selectAll(state.signalers)
   );
-  const { selectedRaceId, selectedSignaler } = useContext(
+  const { selectedRace, selectedSignaler } = useContext(
     MapUtilsContext
   ) as MapUtils;
   const { mode } = useContext(MainMenuContext) as MainMenuUtils;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (selectedRaceId != null) {
-      dispatch(getRacePointsListById(selectedRaceId));
+    if (selectedRace?.id != null) {
+      dispatch(getRacePointsListById(selectedRace?.id));
     }
-  }, [selectedRaceId]);
+  }, [selectedRace?.id]);
 
   const onMapClick = (event: any) => {
-    if (mode === "intersection" && selectedRaceId != null) {
+    if (mode === "intersection" && selectedRace?.id != null) {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
       dispatch(
@@ -44,7 +44,7 @@ const MapHandler = () => {
           id: Date.now(),
           latitude: lat,
           longitude: lng,
-          raceId: selectedRaceId,
+          raceId: selectedRace?.id,
         })
       );
     } else if (mode === "signaler" && selectedSignaler != null) {
@@ -61,19 +61,19 @@ const MapHandler = () => {
   };
 
   const onRacePointRightClick = (event: any, racePointId: string) => {
-    if (mode === "intersection" && selectedRaceId != null) {
+    if (mode === "intersection" && selectedRace?.id != null) {
       dispatch(deleteRacePointById(racePointId));
     }
   };
 
   const onRacePointDrop = (event: any, racePointId: string) => {
-    if (mode === "intersection" && selectedRaceId != null) {
+    if (mode === "intersection" && selectedRace?.id != null) {
       const newLat = event.latLng.lat();
       const newLng = event.latLng.lng();
       dispatch(
         updateRacePointCoordinates({
           id: Number(racePointId),
-          raceId: selectedRaceId!,
+          raceId: selectedRace?.id!,
           latitude: newLat,
           longitude: newLng,
         })
@@ -84,7 +84,7 @@ const MapHandler = () => {
     <GMap
       races={
         mode !== "export" && mode !== "signaler"
-          ? races.filter((race: Race) => race.id === selectedRaceId)
+          ? races.filter((race: Race) => race.id === selectedRace?.id)
           : races
       }
       onMapClick={onMapClick}

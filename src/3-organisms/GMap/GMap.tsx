@@ -27,7 +27,7 @@ const GMap = (props: Props) => {
     signalers,
   } = props;
   const { mode } = useContext(MainMenuContext) as MainMenuUtils;
-  const { setSelectedRaceId } = useContext(MapUtilsContext) as MapUtils;
+  const { setSelectedRace } = useContext(MapUtilsContext) as MapUtils;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
@@ -46,7 +46,7 @@ const GMap = (props: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (mode === "export" || mode === "signaler") {
-      setSelectedRaceId("");
+      setSelectedRace(undefined);
       dispatch(getAllRacePoints());
     }
   }, [mode]);
@@ -88,7 +88,7 @@ const GMap = (props: Props) => {
                   key={`racePointMarker-${racePoint.id}`}
                   id={racePoint.id.toString()}
                   position={latlng}
-                  markerType={MarkerType.CURRENTSIGNALER}
+                  markerType={MarkerType.INTERSECTION}
                   label={`${index + 1}`}
                   draggable={mode === "intersection"}
                   onMarkerRightClick={onRacePointRightClick}
@@ -107,6 +107,7 @@ const GMap = (props: Props) => {
                     Number(racePoint.longitude)
                   )
               )}
+            options={{ strokeColor: race.color }}
           />
         </React.Fragment>
       ))}
@@ -121,7 +122,7 @@ const GMap = (props: Props) => {
             key={`signalerMarker-${signaler.id}`}
             id={signaler.id}
             position={latlng}
-            markerType={MarkerType.CURRENTSIGNALER}
+            markerType={MarkerType.SIGNALER}
             label={`${signaler.firstName} ${signaler.lastName}`}
             draggable={mode === "signaler"}
           />

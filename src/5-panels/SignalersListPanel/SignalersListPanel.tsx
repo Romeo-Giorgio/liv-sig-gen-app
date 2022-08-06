@@ -12,8 +12,15 @@ import { useContext, useEffect, useState } from "react";
 import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
 import { MainMenuUtils, MapUtils, Signaler } from "../../services/types";
 import { useDispatch, useSelector } from "../../store";
-import { getSignalersList, signalerAdapter } from "../../slices/signalerSlice";
+import {
+  createSignaler,
+  deleteSignalerById,
+  getSignalersList,
+  signalerAdapter,
+  updateSignaler,
+} from "../../slices/signalerSlice";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
+import { randomId } from "../../const";
 
 //********** Component **********//
 const MainBarPanel = (props: Props) => {
@@ -44,6 +51,28 @@ const MainBarPanel = (props: Props) => {
       referent: signaler.referent,
     });
   };
+  const onSignalerDelete = (signalerId: string) => {
+    dispatch(deleteSignalerById(signalerId));
+  };
+  const onSignalerEdit = (signalerId: string) => {
+    setSelectedSignaler(
+      signalers.find((signaler) => signaler.id === signalerId)
+    );
+    setOpenSignalerInputPanel(true);
+  };
+
+  const onSignalerSave = () => {
+    if (
+      signalers
+        .map((signaler) => signaler.id)
+        .includes(selectedSignaler?.id!) &&
+      selectedSignaler != null
+    ) {
+      dispatch(updateSignaler(selectedSignaler));
+    } else if (selectedSignaler != null) {
+      dispatch(createSignaler(selectedSignaler));
+    }
+  };
   return (
     <>
       <Fade in={mode === "signaler"} unmountOnExit>
@@ -52,10 +81,18 @@ const MainBarPanel = (props: Props) => {
             <SignalersListTemplate
               askToAddSignaler={() => {
                 setOpenSignalerInputPanel(!openSignalerInputPanel);
+                setSelectedSignaler({
+                  id: randomId(10),
+                  firstName: "",
+                  lastName: "",
+                  mail: "",
+                  phone: "",
+                  drivingLicence: false,
+                });
               }}
               onSelectedSignalerChange={onSelectedSignalerChange}
-              onSignalerDelete={() => {}}
-              onSignalerEdit={() => {}}
+              onSignalerDelete={onSignalerDelete}
+              onSignalerEdit={onSignalerEdit}
               selectedSignaler={selectedSignaler}
               signalersList={signalers}
               inputOpen={openSignalerInputPanel}
@@ -67,10 +104,9 @@ const MainBarPanel = (props: Props) => {
         <StyledInputCard>
           <StyledCardContent>
             <SignalerInput
-              onSignalerBlur={() => {}}
-              onSignalerChange={() => {}}
               signaler={selectedSignaler}
               signalersList={signalers}
+              onSignalerSave={onSignalerSave}
             />
           </StyledCardContent>
         </StyledInputCard>

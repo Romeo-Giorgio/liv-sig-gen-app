@@ -6,7 +6,6 @@ import {
 } from "./RacesListPanel.slots";
 import { Fade } from "@mui/material";
 import RacesListTemplate from "../../4-templates/RacesListTemplate";
-import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
 import RaceInput from "../../3-organisms/RaceInput";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "../../store";
@@ -15,10 +14,11 @@ import {
   deleteRace,
   getRacesList,
   racesAdapter,
+  updateRace,
 } from "../../slices/raceSlice";
 import { randomId } from "../../const";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
-import { MainMenuUtils, MapUtils } from "../../services/types";
+import { MainMenuUtils, MapUtils, Race } from "../../services/types";
 import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
 
 //********** Component **********//
@@ -30,11 +30,11 @@ const RacesListPanel = () => {
 
   const [openRaceInputPanel, setOpenRaceInputPanel] = useState<boolean>(false);
   const [raceInput, setRaceInput] = useState<Race>();
-  const { setSelectedRaceId, selectedRaceId } = useContext(
+  const { setSelectedRace, selectedRace } = useContext(
     MapUtilsContext
   ) as MapUtils;
   const { mode } = useContext(MainMenuContext) as MainMenuUtils;
-  const racesList = useSelector((state) =>
+  const races = useSelector((state) =>
     racesAdapter.getSelectors().selectAll(state.races)
   );
 
@@ -51,11 +51,26 @@ const RacesListPanel = () => {
   };
 
   const onSelectedRaceChange = (selectedRace: Race | undefined) => {
-    setSelectedRaceId(selectedRace?.id ?? "");
+    setSelectedRace(selectedRace);
   };
 
   const onDeleteRaceClick = (raceId: string) => {
     dispatch(deleteRace(raceId));
+  };
+
+  const onEditRaceClick = (raceId: string) => {
+    setSelectedRace(races.find((race) => race.id === raceId));
+    setOpenRaceInputPanel(true);
+  };
+  const onRaceSave = () => {
+    if (
+      races.map((race) => race.id).includes(selectedRace?.id!) &&
+      selectedRace != null
+    ) {
+      dispatch(updateRace(selectedRace));
+    } else if (selectedRace != null) {
+      dispatch(createRace(selectedRace));
+    }
   };
   return (
     <>
@@ -67,10 +82,10 @@ const RacesListPanel = () => {
             }}
             onSelectedRaceChange={onSelectedRaceChange}
             onRaceDelete={onDeleteRaceClick}
-            onRaceEdit={() => {}}
-            racesList={racesList}
+            onRaceEdit={onEditRaceClick}
+            racesList={races}
             inputOpen={openRaceInputPanel}
-            selectedRaceId={selectedRaceId}
+            selectedRaceId={selectedRace?.id}
           />
         </StyledCardContent>
       </StyledListCard>
@@ -79,13 +94,8 @@ const RacesListPanel = () => {
           <StyledCardContent>
             <RaceInput
               race={raceInput}
-              onRaceChange={(v?: Race) => {
-                setRaceInput(v);
-              }}
               onAddPoint={() => {}}
-              onCreateRace={() => {
-                createNewRace();
-              }}
+              onRaceSave={onRaceSave}
             />
           </StyledCardContent>
         </StyledInputCard>

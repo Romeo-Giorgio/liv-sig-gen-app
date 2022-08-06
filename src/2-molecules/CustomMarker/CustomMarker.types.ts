@@ -16,28 +16,11 @@ export enum MarkerType {
   CURRENTSIGNALER,
 }
 
-export const markerByType: Record<MarkerType, google.maps.Icon> = {
-  [MarkerType.INTERSECTION]: {
-    url: "src\\resources\\intersectionMarker.svg",
-
-    // fillColor: "#DC2903",
-    // scale: 7,
-  },
-  [MarkerType.CURRENTINTERSECTION]: {
-    url: "src\\resources\\intersectionMarker.svg",
-    // fillColor: "#0331DC",
-    // scale: 7,
-  },
-  [MarkerType.SIGNALER]: {
-    url: "src\\resources\\intersectionMarker.svg",
-    // fillColor: "#DC2903",
-    // scale: 7,
-  },
-  [MarkerType.CURRENTSIGNALER]: {
-    url: "src\\resources\\intersectionMarker.svg",
-    // fillColor: "#0331DC",
-    // scale: 7,
-  },
+export const markerByType: Record<MarkerType, string> = {
+  [MarkerType.INTERSECTION]: "../../resources/red-blank.png",
+  [MarkerType.CURRENTINTERSECTION]: "../../resources/pink-blank.png",
+  [MarkerType.SIGNALER]: "../../resources/blue-blank.png",
+  [MarkerType.CURRENTSIGNALER]: "../../resources/puurple-blank.png",
 };
 
 //********** Props **********//

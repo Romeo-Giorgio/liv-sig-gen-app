@@ -4,9 +4,10 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createAction,
+  Update,
 } from "@reduxjs/toolkit";
-import { Race } from "../3-organisms/RaceInput/RaceInput.types";
 import RacesDataService from "../services/races.service";
+import { Race } from "../services/types";
 
 //********** Thunks **********//
 export const getRacesList = createAsyncThunk(
@@ -32,6 +33,13 @@ export const deleteRace = createAsyncThunk(
     return response.data;
   }
 );
+export const updateRace = createAsyncThunk(
+  "races/updateRace",
+  async (raceToUpdate: Race, thunkAPI) => {
+    const response = await RacesDataService.updateRace(raceToUpdate);
+    return response.data;
+  }
+);
 
 //********** Slice **********//
 export const racesAdapter = createEntityAdapter<Race>({
@@ -51,6 +59,15 @@ export const racesSlice = createSlice({
     });
     builder.addCase(deleteRace.fulfilled, (state, action) => {
       racesAdapter.removeOne(state, action.payload.deletedId);
+    });
+    builder.addCase(updateRace.fulfilled, (state, action) => {
+      const raceToUpdate: Update<Race> = {
+        id: action.payload.updatedRace.id,
+        changes: {
+          ...action.payload.updatedRace,
+        },
+      };
+      racesAdapter.updateOne(state, raceToUpdate);
     });
   },
 });

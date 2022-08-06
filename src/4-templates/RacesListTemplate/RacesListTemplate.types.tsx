@@ -1,5 +1,5 @@
 //********** Imports **********//
-import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
+import { Race } from "../../services/types";
 
 //********** Props **********//
 export interface Props {

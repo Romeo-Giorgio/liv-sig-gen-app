@@ -1,6 +1,5 @@
 import http from "./http";
-import { Race } from "../3-organisms/RaceInput/RaceInput.types";
-import { DeleteRacePayload } from "./types";
+import { DeleteRacePayload, Race, UpdateRacePayload } from "./types";
 
 class RacesDataService {
   getAll() {
@@ -21,6 +20,13 @@ class RacesDataService {
   }
   delete(id: string) {
     return http.delete<DeleteRacePayload>(`/races/${id}`);
+  }
+  updateRace(data: Race) {
+    return http.put<UpdateRacePayload>(`/races/${data.id}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 }
 

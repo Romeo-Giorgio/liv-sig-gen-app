@@ -1,9 +1,9 @@
 //********** Import **********//
 import { action } from "@storybook/addon-actions";
 import RaceInput from "./RaceInput";
-import { Race } from "./RaceInput.types";
 import { useState } from "react";
 import { randomId } from "../../const";
+import { Race } from "../../services/types";
 
 //********** Stories **********//
 export default {
@@ -23,21 +23,16 @@ export const DefaultStory = () => {
     id: randomId(10),
     name: "Course 12km",
     description: "Course de 12km libre",
+    color: "#0000FF",
   });
   return (
     <RaceInput
       race={currentRace}
-      onRaceChange={(v: Race | undefined) => {
-        if (v != null) {
-          setCurrentRace(v);
-          action("onRaceChange")(v);
-        }
-      }}
       onAddPoint={() => {
         action("onAddPoint")(currentRace);
       }}
-      onCreateRace={() => {
-        action("onCreateRace")(currentRace);
+      onRaceSave={() => {
+        action("onRaceSave")(currentRace);
       }}
     />
   );

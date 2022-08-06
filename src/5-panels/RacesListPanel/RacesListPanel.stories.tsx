@@ -1,6 +1,6 @@
 //********** Import **********//
-import { Race } from "../../3-organisms/RaceInput/RaceInput.types";
 import { randomId } from "../../const";
+import { Race } from "../../services/types";
 import RacesListPanel from "./RacesListPanel";
 
 //********** Stories **********//
@@ -22,26 +22,31 @@ const temporaryList: Race[] = [
     id: randomId(10),
     name: "Course 10km",
     description: "Course chronométrée de 10",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Course 6km",
     description: "Course libre",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Course 4km",
     description: "",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Randonnée 10km",
     description: "",
+    color: "#0000FF",
   },
   {
     id: randomId(10),
     name: "Randonnée 6km",
     description: "",
+    color: "#0000FF",
   },
 ];
 export const DefaultStory = () => {

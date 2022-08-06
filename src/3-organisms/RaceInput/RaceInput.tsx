@@ -1,21 +1,35 @@
 //********** Imports **********//
-import { Props, Race } from "./RaceInput.types";
-import { Button, Grid, Input, InputLabel } from "@mui/material";
+import { Props } from "./RaceInput.types";
+import { Button, Grid, hexToRgb, Input, InputLabel } from "@mui/material";
 import { SpacedGrid, StyledTextareaAutosize } from "./RaceInput.slots";
+import { MapUtils, Race } from "../../services/types";
+import { useContext } from "react";
+import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
+import { Color, HuePicker } from "react-color";
+
+//********** Types **********//
+interface RGBColor {
+  r: number;
+  g: number;
+  b: number;
+}
 
 //********** Component **********//
 const RaceInput = (props: Props) => {
-  const { race, onCreateRace, onRaceChange } = props;
+  const { onRaceSave } = props;
+  const { setSelectedRace, selectedRace } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
 
   return (
     <Grid container alignItems="flex-start" direction="column">
       <Grid item xs>
         <InputLabel>Nom</InputLabel>
         <Input
-          value={race?.name}
+          value={selectedRace?.name}
           onChange={(e) => {
-            onRaceChange({
-              ...race,
+            setSelectedRace({
+              ...selectedRace,
               name: e.target.value,
             } as Race);
           }}
@@ -26,17 +40,28 @@ const RaceInput = (props: Props) => {
         <StyledTextareaAutosize
           minRows={5}
           maxRows={6}
-          value={race?.description}
+          value={selectedRace?.description}
           onChange={(e) => {
-            onRaceChange({
-              ...race,
+            setSelectedRace({
+              ...selectedRace,
               description: e.target.value,
             } as Race);
           }}
         />
       </SpacedGrid>
       <SpacedGrid item xs>
-        <Button onClick={onCreateRace}>Enregistrer</Button>
+        <HuePicker
+          width="180px"
+          color={selectedRace?.color ?? "#000"}
+          onChange={(c, e) => {
+            if (selectedRace !== undefined) {
+              setSelectedRace({ ...selectedRace, color: c.hex.toString() });
+            }
+          }}
+        />
+      </SpacedGrid>
+      <SpacedGrid item xs>
+        <Button onClick={onRaceSave}>Enregistrer</Button>
       </SpacedGrid>
     </Grid>
   );
