@@ -26,6 +26,10 @@ export interface Signaler {
   id: string;
   /** Signaler's referent. */
   referent?: string;
+  /** Signaler's previous signaler. */
+  previousSignaler?: string;
+  /** Signaler's next signaler. */
+  nextSignaler?: string;
   /** Signaler's lat name. */
   lastName: string;
   /** Signaler's first name. */
@@ -40,6 +44,16 @@ export interface Signaler {
   latitude?: number;
   /** Longitude of the signaler. */
   longitude?: number;
+  /** Localisation of the signaler. */
+  localisation: string;
+}
+
+export interface Evenement {
+  id: number;
+  eventLabel: string;
+  dateLabel: string;
+  bikeLabel: string;
+  issueLabel: string;
 }
 
 export interface MapUtils {
@@ -85,4 +99,8 @@ export interface DeleteSignalerPayload {
 export interface UpdateSignalerPayload {
   /** Updated element in database. */
   updatedSignaler: Signaler;
+}
+export interface UpdateEvenementPayload {
+  /** Updated element in database. */
+  updatedEvenement: Evenement;
 }

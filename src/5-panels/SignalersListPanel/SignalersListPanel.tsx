@@ -10,8 +10,13 @@ import SignalersListTemplate from "../../4-templates/SignalersListTemplate";
 import SignalerInput from "../../3-organisms/SignalerInput";
 import { useContext, useEffect, useState } from "react";
 import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
-import { MainMenuUtils, MapUtils, Signaler } from "../../services/types";
-import { useDispatch, useSelector } from "../../store";
+import {
+  Evenement,
+  MainMenuUtils,
+  MapUtils,
+  Signaler,
+} from "../../services/types";
+import store, { useDispatch, useSelector } from "../../store";
 import {
   createSignaler,
   deleteSignalerById,
@@ -21,6 +26,12 @@ import {
 } from "../../slices/signalerSlice";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 import { randomId } from "../../const";
+import SignalerExport from "../../3-organisms/SignalerExport";
+import {
+  evenementAdapter,
+  getEvenement,
+  updateEvenement,
+} from "../../slices/evenementSlice";
 
 //********** Component **********//
 const MainBarPanel = (props: Props) => {
@@ -33,7 +44,15 @@ const MainBarPanel = (props: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSignalersList());
+    dispatch(getEvenement());
   }, [dispatch]);
+
+  const storeEvenement = useSelector(
+    (state) => evenementAdapter.getSelectors().selectAll(state.evenement)[0]
+  );
+
+  const [currentEvenement, setCurrentEvenement] =
+    useState<Evenement | undefined>();
 
   const signalers = useSelector((state) =>
     signalerAdapter.getSelectors().selectAll(state.signalers)
@@ -49,6 +68,9 @@ const MainBarPanel = (props: Props) => {
       mail: signaler.mail,
       phone: signaler.phone,
       referent: signaler.referent,
+      previousSignaler: signaler.previousSignaler,
+      nextSignaler: signaler.nextSignaler,
+      localisation: signaler.localisation,
     });
   };
   const onSignalerDelete = (signalerId: string) => {
@@ -73,9 +95,15 @@ const MainBarPanel = (props: Props) => {
       dispatch(createSignaler(selectedSignaler));
     }
   };
+
+  const onEvenementSave = () => {
+    if (currentEvenement != null) {
+      dispatch(updateEvenement(currentEvenement));
+    }
+  };
   return (
     <>
-      <Fade in={mode === "signaler"} unmountOnExit>
+      <Fade in={mode === "signaler" || mode === "export"} unmountOnExit>
         <StyledListCard>
           <StyledCardContent>
             <SignalersListTemplate
@@ -88,6 +116,7 @@ const MainBarPanel = (props: Props) => {
                   mail: "",
                   phone: "",
                   drivingLicence: false,
+                  localisation: "",
                 });
               }}
               onSelectedSignalerChange={onSelectedSignalerChange}
@@ -107,6 +136,17 @@ const MainBarPanel = (props: Props) => {
               signaler={selectedSignaler}
               signalersList={signalers}
               onSignalerSave={onSignalerSave}
+            />
+          </StyledCardContent>
+        </StyledInputCard>
+      </Fade>
+      <Fade in={mode === "export" && selectedSignaler != null} unmountOnExit>
+        <StyledInputCard>
+          <StyledCardContent>
+            <SignalerExport
+              evenement={currentEvenement || storeEvenement}
+              setEvenement={setCurrentEvenement}
+              saveEvenement={onEvenementSave}
             />
           </StyledCardContent>
         </StyledInputCard>

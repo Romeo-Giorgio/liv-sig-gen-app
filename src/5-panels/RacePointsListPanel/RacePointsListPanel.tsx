@@ -34,7 +34,7 @@ const RacePointsListPanel = () => {
     dispatch(deleteRacePointById(racePointId.toString()));
   };
   return (
-    <Fade in={mode === "intersection" && selectedRace?.id != ""} unmountOnExit>
+    <Fade in={mode === "intersection" && selectedRace != null} unmountOnExit>
       <StyledListCard>
         <StyledCardContent>
           <RacePointsListTemplate

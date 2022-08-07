@@ -18,9 +18,11 @@ class RacesDataService {
       },
     });
   }
+
   delete(id: string) {
     return http.delete<DeleteRacePayload>(`/races/${id}`);
   }
+
   updateRace(data: Race) {
     return http.put<UpdateRacePayload>(`/races/${data.id}`, data, {
       headers: {

@@ -3,7 +3,7 @@ import { Props } from "./RaceInput.types";
 import { Button, Grid, hexToRgb, Input, InputLabel } from "@mui/material";
 import { SpacedGrid, StyledTextareaAutosize } from "./RaceInput.slots";
 import { MapUtils, Race } from "../../services/types";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
 import { Color, HuePicker } from "react-color";
 

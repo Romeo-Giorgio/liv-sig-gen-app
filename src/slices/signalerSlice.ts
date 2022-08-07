@@ -44,7 +44,9 @@ export const deleteSignalerById = createAsyncThunk(
 );
 
 //********** Slice **********//
-export const signalerAdapter = createEntityAdapter<Signaler>();
+export const signalerAdapter = createEntityAdapter<Signaler>({
+  sortComparer: (a, b) => a.lastName.localeCompare(b.lastName),
+});
 
 export const signalerSlice = createSlice({
   name: "signalers",

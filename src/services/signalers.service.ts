@@ -16,7 +16,6 @@ class SignalersDataService {
     return http.get<Array<Signaler>>(`/signalers/${raceId}`);
   }
 
-  //TODO : get with id is not implement yet on api
   get(id: string) {
     return http.get<Signaler>(`/signalers/${id}`);
   }

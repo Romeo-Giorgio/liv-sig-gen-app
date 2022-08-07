@@ -33,6 +33,7 @@ export const deleteRace = createAsyncThunk(
     return response.data;
   }
 );
+
 export const updateRace = createAsyncThunk(
   "races/updateRace",
   async (raceToUpdate: Race, thunkAPI) => {

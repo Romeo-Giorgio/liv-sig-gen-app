@@ -8,6 +8,9 @@ import {
   StyledListItemText,
 } from "./SignalersList.slots";
 import { Delete, Edit } from "@mui/icons-material";
+import { useContext } from "react";
+import { MainMenuContext } from "../../0-abstract/MainMenuContext/MainMenuContext";
+import { MainMenuUtils } from "../../services/types";
 
 //********** Component **********//
 const SignalersList = (props: Props) => {
@@ -18,6 +21,7 @@ const SignalersList = (props: Props) => {
     onSignalerEdit,
     onSignalerDelete,
   } = props;
+  const { mode } = useContext(MainMenuContext) as MainMenuUtils;
 
   return (
     <StyledBox>
@@ -34,22 +38,26 @@ const SignalersList = (props: Props) => {
               primary={signaler.lastName}
               secondary={signaler.firstName}
             />
-            <StyledListItemIcon
-              onClick={(e) => {
-                onSignalerEdit(signaler.id);
-                e.stopPropagation();
-              }}
-            >
-              <Edit />
-            </StyledListItemIcon>
-            <StyledListItemIcon
-              onClick={(e) => {
-                onSignalerDelete(signaler.id);
-                e.stopPropagation();
-              }}
-            >
-              <Delete />
-            </StyledListItemIcon>
+            {mode === "signaler" && (
+              <StyledListItemIcon
+                onClick={(e) => {
+                  onSignalerEdit(signaler.id);
+                  e.stopPropagation();
+                }}
+              >
+                <Edit />
+              </StyledListItemIcon>
+            )}
+            {mode === "signaler" && (
+              <StyledListItemIcon
+                onClick={(e) => {
+                  onSignalerDelete(signaler.id);
+                  e.stopPropagation();
+                }}
+              >
+                <Delete />
+              </StyledListItemIcon>
+            )}
           </StyledListItem>
         ))}
       </StyledList>

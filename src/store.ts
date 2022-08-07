@@ -17,12 +17,14 @@ import {
 import raceSlice from "./slices/raceSlice";
 import racePointSlice from "./slices/racePointSlice";
 import signalerSlice from "./slices/signalerSlice";
+import evenementSlice from "./slices/evenementSlice";
 
 //********** Store **********//
 const reducer = combineReducers({
   races: raceSlice,
   racePoints: racePointSlice,
   signalers: signalerSlice,
+  evenement: evenementSlice,
 });
 
 const store = configureStore({

@@ -74,21 +74,30 @@ const RacesListPanel = () => {
   };
   return (
     <>
-      <StyledListCard>
-        <StyledCardContent>
-          <RacesListTemplate
-            askToAddRace={() => {
-              setOpenRaceInputPanel(!openRaceInputPanel);
-            }}
-            onSelectedRaceChange={onSelectedRaceChange}
-            onRaceDelete={onDeleteRaceClick}
-            onRaceEdit={onEditRaceClick}
-            racesList={races}
-            inputOpen={openRaceInputPanel}
-            selectedRaceId={selectedRace?.id}
-          />
-        </StyledCardContent>
-      </StyledListCard>
+      <Fade in={mode !== "export"} unmountOnExit>
+        <StyledListCard>
+          <StyledCardContent>
+            <RacesListTemplate
+              askToAddRace={() => {
+                setOpenRaceInputPanel(!openRaceInputPanel);
+                setSelectedRace({
+                  id: randomId(10),
+                  color: "#000000",
+                  name: "",
+                  description: "",
+                });
+              }}
+              onSelectedRaceChange={onSelectedRaceChange}
+              onRaceDelete={onDeleteRaceClick}
+              onRaceEdit={onEditRaceClick}
+              racesList={races}
+              inputOpen={openRaceInputPanel}
+              selectedRaceId={selectedRace?.id}
+            />
+          </StyledCardContent>
+        </StyledListCard>
+      </Fade>
+
       <Fade in={openRaceInputPanel && mode === "race"}>
         <StyledInputCard>
           <StyledCardContent>

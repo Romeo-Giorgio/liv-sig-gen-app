@@ -76,26 +76,27 @@ const GMap = (props: Props) => {
       {/* Child components, such as markers, info windows, etc. */}
       {races.map((race) => (
         <React.Fragment key={`ReactFragmentRace-${race.id}`}>
-          {racePoints
-            .filter((racePoint) => racePoint.raceId === race.id)
-            .map((racePoint, index) => {
-              const latlng = new google.maps.LatLng(
-                Number(racePoint.latitude),
-                Number(racePoint.longitude)
-              );
-              return (
-                <CustomMarker
-                  key={`racePointMarker-${racePoint.id}`}
-                  id={racePoint.id.toString()}
-                  position={latlng}
-                  markerType={MarkerType.INTERSECTION}
-                  label={`${index + 1}`}
-                  draggable={mode === "intersection"}
-                  onMarkerRightClick={onRacePointRightClick}
-                  onMarkerDrop={onRacePointMarkerDrop}
-                />
-              );
-            })}
+          {(mode === "intersection" || mode === "race") &&
+            racePoints
+              .filter((racePoint) => racePoint.raceId === race.id)
+              .map((racePoint, index) => {
+                const latlng = new google.maps.LatLng(
+                  Number(racePoint.latitude),
+                  Number(racePoint.longitude)
+                );
+                return (
+                  <CustomMarker
+                    key={`racePointMarker-${racePoint.id}`}
+                    id={racePoint.id.toString()}
+                    position={latlng}
+                    markerType={MarkerType.INTERSECTION}
+                    label={`${index + 1}`}
+                    draggable={mode === "intersection"}
+                    onMarkerRightClick={onRacePointRightClick}
+                    onMarkerDrop={onRacePointMarkerDrop}
+                  />
+                );
+              })}
           <Polyline
             key={`polyline-${race.id}`}
             path={racePoints

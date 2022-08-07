@@ -8,7 +8,11 @@ import {
   InputLabel,
   MenuItem,
 } from "@mui/material";
-import { StyledGrid, StyledSelect } from "./SignalerInput.slots";
+import {
+  StyledGrid,
+  StyledSelect,
+  StyledTextareaAutosize,
+} from "./SignalerInput.slots";
 import { MapUtils, Signaler } from "../../services/types";
 import { useContext } from "react";
 import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContext";
@@ -23,6 +27,31 @@ const SignalerInput = (props: Props) => {
   return (
     <Grid container direction="column">
       <Grid container spacing={2} direction="row">
+        <Grid item>
+          <InputLabel>Référent</InputLabel>
+          <StyledSelect
+            value={
+              selectedSignaler?.referent != null
+                ? selectedSignaler?.referent
+                : ""
+            }
+            onChange={(e, v) => {
+              setSelectedSignaler({
+                ...selectedSignaler,
+                referent: e.target.value,
+              } as Signaler);
+            }}
+          >
+            <MenuItem value="">
+              <em> </em>
+            </MenuItem>
+            {signalersList?.map((k, i) => (
+              <MenuItem value={k.id} key={`menuItem-${k.id}`}>
+                <em>{`${k.lastName} ${k.firstName}`}</em>
+              </MenuItem>
+            ))}
+          </StyledSelect>
+        </Grid>
         <Grid item>
           <InputLabel>Nom</InputLabel>
           <Input
@@ -47,18 +76,20 @@ const SignalerInput = (props: Props) => {
             }}
           />
         </Grid>
+      </Grid>
+      <StyledGrid container spacing={2} direction="row">
         <Grid item>
-          <InputLabel>Référent</InputLabel>
+          <InputLabel>Précédent</InputLabel>
           <StyledSelect
             value={
-              selectedSignaler?.referent != null
-                ? selectedSignaler?.referent
+              selectedSignaler?.previousSignaler != null
+                ? selectedSignaler?.previousSignaler
                 : ""
             }
             onChange={(e, v) => {
               setSelectedSignaler({
                 ...selectedSignaler,
-                referent: e.target.value,
+                previousSignaler: e.target.value,
               } as Signaler);
             }}
           >
@@ -67,13 +98,11 @@ const SignalerInput = (props: Props) => {
             </MenuItem>
             {signalersList?.map((k, i) => (
               <MenuItem value={k.id} key={`menuItem-${k.id}`}>
-                <em>{`${k.firstName} ${k.lastName}`}</em>
+                <em>{`${k.lastName} ${k.firstName}`}</em>
               </MenuItem>
             ))}
           </StyledSelect>
         </Grid>
-      </Grid>
-      <StyledGrid container spacing={2} direction="row">
         <Grid item>
           <InputLabel>Prénom</InputLabel>
           <Input
@@ -99,6 +128,47 @@ const SignalerInput = (props: Props) => {
             }}
           />
         </Grid>
+      </StyledGrid>
+      <StyledGrid container spacing={2} direction="row">
+        <Grid item>
+          <InputLabel>Suivant</InputLabel>
+          <StyledSelect
+            value={
+              selectedSignaler?.nextSignaler != null
+                ? selectedSignaler?.nextSignaler
+                : ""
+            }
+            onChange={(e, v) => {
+              setSelectedSignaler({
+                ...selectedSignaler,
+                nextSignaler: e.target.value,
+              } as Signaler);
+            }}
+          >
+            <MenuItem value="">
+              <em> </em>
+            </MenuItem>
+            {signalersList?.map((k, i) => (
+              <MenuItem value={k.id} key={`menuItem-${k.id}`}>
+                <em>{`${k.lastName} ${k.firstName}`}</em>
+              </MenuItem>
+            ))}
+          </StyledSelect>
+        </Grid>
+        <Grid item>
+          <InputLabel>Localisation</InputLabel>
+          <StyledTextareaAutosize
+            minRows={5}
+            maxRows={6}
+            value={selectedSignaler?.localisation ?? ""}
+            onChange={(e) => {
+              setSelectedSignaler({
+                ...selectedSignaler,
+                localisation: e.target.value,
+              } as Signaler);
+            }}
+          />
+        </Grid>
         <Grid item>
           <InputLabel>Permis</InputLabel>
           <Checkbox
@@ -110,6 +180,8 @@ const SignalerInput = (props: Props) => {
               } as Signaler);
             }}
           />
+        </Grid>
+        <Grid item>
           <Button onClick={onSignalerSave}>Enregistrer</Button>
         </Grid>
       </StyledGrid>

@@ -30,10 +30,10 @@ const RacesList = (props: Props) => {
         {racesList?.map((race, index) => (
           <StyledListItem
             key={index}
-            selected={race.id === selectedRaceId ?? false}
             onClick={(e) => {
               onSelectedRaceChange(race);
             }}
+            raceColor={race.color}
           >
             <StyledListItemText
               primary={race?.name}

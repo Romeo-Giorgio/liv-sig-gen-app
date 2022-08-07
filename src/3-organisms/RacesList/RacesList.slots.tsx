@@ -5,7 +5,10 @@ import ListItem, { ListItemProps } from "@mui/material/ListItem";
 import ListItemText, { ListItemTextProps } from "@mui/material/ListItemText";
 import ListItemIcon, { ListItemIconProps } from "@mui/material/ListItemIcon";
 import { styled } from "@mui/material/styles";
-
+//********** Types **********//
+interface StyledListItemProps extends ListItemProps {
+  raceColor: string;
+}
 //********** Styles **********//
 export const StyledBox = styled(Box)<BoxProps>(({}) => ({
   width: "100%",
@@ -25,11 +28,15 @@ export const StyledList = styled(List)<ListProps>(({ theme }) => ({
   minHeight: " 100%",
 }));
 
-export const StyledListItem = styled(ListItem)<ListItemProps>(({ theme }) => ({
+export const StyledListItem = styled(ListItem, {
+  shouldForwardProp: (prop) => prop !== "raceColor",
+})<StyledListItemProps>(({ raceColor, theme }) => ({
   borderRadius: theme.shape.borderRadius,
   "&:hover": {
     backgroundColor: theme.palette.info.light,
   },
+  backgroundColor: raceColor,
+  color: theme.palette.getContrastText(raceColor),
 }));
 
 export const StyledListItemText = styled(ListItemText)<ListItemTextProps>(
