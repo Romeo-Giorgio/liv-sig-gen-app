@@ -27,7 +27,9 @@ const GMap = (props: Props) => {
     signalers,
   } = props;
   const { mode } = useContext(MainMenuContext) as MainMenuUtils;
-  const { setSelectedRace } = useContext(MapUtilsContext) as MapUtils;
+  const { setSelectedRace, selectedRacePoint, selectedSignaler } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: GOOGLE_MAP_API_KEY,
@@ -89,8 +91,17 @@ const GMap = (props: Props) => {
                     key={`racePointMarker-${racePoint.id}`}
                     id={racePoint.id.toString()}
                     position={latlng}
-                    markerType={MarkerType.INTERSECTION}
-                    label={`${index + 1}`}
+                    markerType={
+                      racePoint.id === selectedRacePoint
+                        ? MarkerType.CURRENTINTERSECTION
+                        : MarkerType.INTERSECTION
+                    }
+                    label={
+                      {
+                        text: `${index + 1}`,
+                        fontWeight: "bold",
+                      } as google.maps.MarkerLabel
+                    }
                     draggable={mode === "intersection"}
                     onMarkerRightClick={onRacePointRightClick}
                     onMarkerDrop={onRacePointMarkerDrop}
@@ -123,8 +134,17 @@ const GMap = (props: Props) => {
             key={`signalerMarker-${signaler.id}`}
             id={signaler.id}
             position={latlng}
-            markerType={MarkerType.SIGNALER}
-            label={`${signaler.firstName} ${signaler.lastName}`}
+            markerType={
+              signaler.id === selectedSignaler?.id
+                ? MarkerType.CURRENTSIGNALER
+                : MarkerType.SIGNALER
+            }
+            label={
+              {
+                text: `${signaler.firstName} ${signaler.lastName}`,
+                fontWeight: "bold",
+              } as google.maps.MarkerLabel
+            }
             draggable={mode === "signaler"}
           />
         );

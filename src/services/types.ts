@@ -65,6 +65,10 @@ export interface MapUtils {
   selectedSignaler?: Signaler;
   /** Set the selected signaler. */
   setSelectedSignaler: (signaler?: Signaler) => void;
+  /** Selected racePoint. */
+  selectedRacePoint?: number;
+  /** Set the selected race point. */
+  setSelectedRacePoint: (racePoint?: number) => void;
 }
 
 export type MainMenuMode = "race" | "intersection" | "signaler" | "export";

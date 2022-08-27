@@ -15,10 +15,10 @@ import { MapUtilsContext } from "../../0-abstract/MapUtilsContext/MapUtilsContex
 
 //********** Component **********//
 const RacePointsListPanel = () => {
-  const [selectedRacePoint, setSelectedRacePoint] =
-    useState<number | undefined>();
   const { mode } = useContext(MainMenuContext) as MainMenuUtils;
-  const { selectedRace } = useContext(MapUtilsContext) as MapUtils;
+  const { selectedRace, setSelectedRacePoint, selectedRacePoint } = useContext(
+    MapUtilsContext
+  ) as MapUtils;
   const racePoints = useSelector((state) =>
     racePointAdapter.getSelectors().selectAll(state.racePoints)
   );
